@@ -84,7 +84,7 @@ public class QuestRewardFragment extends ListFragment{
 			int cellPercentageText = questReward.getPercentage();
 
 			itemTextView.setText(cellItemText);
-			amountTextView.setText("x" + cellAmountText);
+			amountTextView.setText("×" + cellAmountText);
 
 			String percent = "" + cellPercentageText + "%";
 			percentageTextView.setText(percent);

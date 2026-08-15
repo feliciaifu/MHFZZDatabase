@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:hint="New Wishlist Name" />
+        android:hint="@string/ui_new_wishlist_hint" />
 </LinearLayout>

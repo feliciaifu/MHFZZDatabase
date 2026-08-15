@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="Reward"
+            android:text="@string/ui_reward"
             android:textColor="@color/text_primary_color" />
 
         <TextView

@@ -19,7 +19,8 @@ import com.ghstudios.android.util.useCursor
 class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
     val db get() = dbMainHelper.writableDatabase
 
-    val col_name get() = localizeColumn("name")
+    /** 带表名前缀的本地化 name 列（zh: COALESCE(NULLIF(t.name_zh,''), t.name_ja, t.name)） */
+    fun colName(table: String) = localizeTableColumn(table, "name")
 
 
     /**
@@ -27,7 +28,7 @@ class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
      */
     fun queryBentoMetadata(bentoId : Long): BentoMetadata? {
         val cursor = db.rawQuery("""
-            SELECT b._id, b.$col_name name
+            SELECT b._id, ${colName("b")} name
             FROM bento b
             WHERE b._id = ?
             """, arrayOf(bentoId.toString()))
@@ -48,7 +49,7 @@ class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
      */
     fun queryMonsterMetadata(monsterId : Long): MonsterMetadata? {
         val cursor = db.rawQuery("""
-            SELECT m._id, m.$col_name name,metadata,
+            SELECT m._id, ${colName("m")} name,metadata,
                 (SELECT 1 FROM monster_damage d WHERE d.monster_id = m._id LIMIT 1) has_damage,
                 (SELECT 1 FROM monster_status s WHERE s.monster_id = m._id LIMIT 1) has_status
             FROM monsters m
@@ -81,7 +82,7 @@ class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
      */
     fun queryItemMetadata(itemId: Long): ItemMetadata? {
         val cursor = db.rawQuery("""
-            SELECT item._id, item.$col_name name,
+            SELECT item._id, ${colName("item")} name,
                 (
                     SELECT 1
                     FROM combining c
@@ -126,7 +127,7 @@ class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
 
     fun queryArmorSetMetadataByFamily(family: Long): List<ArmorMetadata> {
         val cursor = db.rawQuery("""
-            SELECT a._id, a.slot, i.$col_name name, i.icon_name,a.family, i.rarity, af.name AS fname
+            SELECT a._id, a.slot, ${colName("i")} name, i.icon_name,a.family, i.rarity, af.name AS fname
             FROM armor a
                 JOIN items i
                     ON i._id = a._id
@@ -139,7 +140,7 @@ class MetadataDao(val dbMainHelper: SQLiteOpenHelper) {
 
     fun queryArmorSetMetadataByArmor(armorId: Long): List<ArmorMetadata> {
         val cursor = db.rawQuery("""
-            SELECT a._id, a.slot, i.name name, i.icon_name, a.family, i.rarity, af.name AS fname
+            SELECT a._id, a.slot, ${colName("i")} name, i.icon_name, a.family, i.rarity, ${colName("af")} AS fname
             FROM armor a
                 JOIN items i
                     ON i._id = a._id

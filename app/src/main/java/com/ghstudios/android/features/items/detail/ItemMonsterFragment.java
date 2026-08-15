@@ -92,7 +92,7 @@ public class ItemMonsterFragment extends ListFragment {
             rankTextView.setText(cellRankText);
             monsterTextView.setText(cellMonsterText);
             methodTextView.setText(cellMethodText);
-            amountTextView.setText("x" + cellAmountText);
+            amountTextView.setText("×" + cellAmountText);
 
             String percent = "" + cellPercentageText + "%";
             percentageTextView.setText(percent);

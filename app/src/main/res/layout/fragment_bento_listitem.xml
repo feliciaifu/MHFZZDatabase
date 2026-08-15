@@ -118,7 +118,7 @@ android:background="?android:attr/selectableItemBackground">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="HP" />
+                android:text="@string/ui_hp" />
 
             <TextView
                 android:id="@+id/bentoeffect1"
@@ -148,7 +148,7 @@ android:background="?android:attr/selectableItemBackground">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="ST" />
+                android:text="@string/ui_st" />
 
             <TextView
                 android:id="@+id/bentoeffect2"
@@ -178,7 +178,7 @@ android:background="?android:attr/selectableItemBackground">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="ATK" />
+                android:text="@string/ui_atk" />
 
             <TextView
                 android:id="@+id/bentoeffect3"
@@ -208,7 +208,7 @@ android:background="?android:attr/selectableItemBackground">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="DEF" />
+                android:text="@string/ui_def" />
 
             <TextView
                 android:id="@+id/bentoeffect4"

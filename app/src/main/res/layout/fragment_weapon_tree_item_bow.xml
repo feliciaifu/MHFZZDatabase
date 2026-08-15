@@ -42,7 +42,7 @@
                 style="@style/text_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Leidenskraft"
+                android:text="@string/sample_weapon3"
                 android:id="@+id/name_text"
                 android:layout_centerVertical="true" />
 
@@ -124,7 +124,7 @@
                 style="@style/text_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DMG: 7777"
+                android:text="@string/sample_dmg"
                 android:id="@+id/attack_text"
                 android:layout_gravity="left"
                 android:layout_marginRight="4dp"
@@ -133,7 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Spread 1 / Spread 2 / Spread 3 / Spread 4"
+                android:text="@string/ui_spread_all"
                 android:id="@+id/charge_text"
                 android:layout_below="@+id/attack_text"
                 android:textSize="12sp" />
@@ -141,7 +141,7 @@
             <TextView
                 android:layout_width="52dp"
                 android:layout_height="wrap_content"
-                android:text="DEF: 50"
+                android:text="@string/sample_def"
                 android:id="@+id/defense_text"
                 android:layout_toLeftOf="@+id/affinity_text"
                 android:layout_alignTop="@+id/affinity_text"
@@ -151,7 +151,7 @@
                 style="@style/text_small"
                 android:layout_width="44dp"
                 android:layout_height="wrap_content"
-                android:text="OOO"
+                android:text="@string/ui_slots_placeholder"
                 android:id="@+id/slots_text"
                 android:gravity="right|top"
                 android:layout_alignParentRight="true"
@@ -208,7 +208,7 @@
             <TextView
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:text="Power"
+                android:text="@string/ui_power"
                 android:id="@+id/arc_shot_text"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/attack_text"

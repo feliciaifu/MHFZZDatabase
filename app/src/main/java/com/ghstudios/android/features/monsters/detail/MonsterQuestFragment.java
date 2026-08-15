@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.ghstudios.android.AssetLoader;
 import com.github.monxalo.android.widget.SectionCursorAdapter;
 import com.ghstudios.android.data.classes.MonsterToQuest;
+import com.ghstudios.android.data.classes.QuestHub;
 import com.ghstudios.android.data.cursors.MonsterToQuestCursor;
 import com.ghstudios.android.data.database.S;
 import com.ghstudios.android.loader.MonsterToQuestListCursorLoader;
@@ -85,6 +86,12 @@ public class MonsterQuestFragment extends ListFragment implements
                 MonsterToQuestCursor cursor) {
             super(context, cursor, R.layout.listview_generic_header, S.COLUMN_QUESTS_HUB);
             mMonsterToQuestCursor = cursor;
+        }
+
+        @Override
+        protected String getCustomGroup(Cursor c) {
+            String hubStr = c.getString(c.getColumnIndex(S.COLUMN_QUESTS_HUB));
+            return AssetLoader.localizeHub(QuestHub.from(hubStr));
         }
 
         @Override

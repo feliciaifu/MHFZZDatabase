@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>MHFZ 文本数据浏览器</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft YaHei", sans-serif; background: #1e1e2e; color: #cdd6f4; height: 100vh; display: flex; flex-direction: column; }
+  header { background: #313244; padding: 8px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid #45475a; }
+  header h1 { font-size: 16px; color: #89b4fa; }
+  header select, header input, header button { background: #45475a; color: #cdd6f4; border: 1px solid #585b70; border-radius: 4px; padding: 4px 8px; font-size: 13px; }
+  header button { cursor: pointer; }
+  header button:hover { background: #585b70; }
+  #searchFile { min-width: 260px; }
+  #searchQ { width: 200px; }
+  main { flex: 1; display: flex; min-height: 0; }
+  aside { width: 280px; background: #181825; border-right: 2px solid #45475a; overflow-y: auto; padding: 8px; flex-shrink: 0; }
+  aside h3 { font-size: 12px; color: #a6adc8; margin: 10px 4px 4px; }
+  .tree-item { padding: 3px 8px; cursor: pointer; font-size: 13px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tree-item:hover { background: #313244; }
+  .tree-item.active { background: #45475a; color: #89b4fa; }
+  .tree-size { color: #6c7086; font-size: 11px; margin-left: 6px; }
+  .table-item { padding: 3px 8px; cursor: pointer; font-size: 13px; border-radius: 3px; }
+  .table-item:hover { background: #313244; }
+  .table-item.active { background: #45475a; color: #89b4fa; }
+  section#main { flex: 1; display: flex; min-width: 0; }
+  #listPanel { width: 46%; border-right: 2px solid #45475a; display: flex; flex-direction: column; min-width: 0; }
+  #detailPanel { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .panel-head { background: #313244; padding: 6px 10px; font-size: 13px; border-bottom: 1px solid #45475a; display: flex; justify-content: space-between; align-items: center; }
+  .panel-head .count { color: #a6adc8; }
+  .pager { display: flex; gap: 6px; align-items: center; }
+  .pager input { width: 70px; background: #45475a; color: #cdd6f4; border: 1px solid #585b70; border-radius: 3px; padding: 2px 5px; }
+  .pager button { background: #45475a; color: #cdd6f4; border: 1px solid #585b70; border-radius: 3px; padding: 2px 9px; cursor: pointer; }
+  .pager button:hover { background: #585b70; }
+  #entryList { flex: 1; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { position: sticky; top: 0; background: #313244; text-align: left; padding: 5px 8px; color: #a6adc8; z-index: 2; }
+  td { padding: 4px 8px; border-bottom: 1px solid #2b2b3c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 0; }
+  tr { cursor: pointer; }
+  tr:hover { background: #313244; }
+  tr.active { background: #45475a; }
+  td.idx { color: #6c7086; width: 70px; }
+  td.off { color: #6c7086; width: 80px; font-family: Consolas, monospace; }
+  td.len { color: #6c7086; width: 60px; }
+  td.txt { font-family: Consolas, "Microsoft YaHei", monospace; }
+  .highlight { background: #f9e2af; color: #1e1e2e; border-radius: 2px; }
+  #entryDetail { flex: 1; overflow-y: auto; padding: 10px 14px; font-size: 13px; }
+  #entryDetail .field { color: #a6adc8; font-size: 12px; margin-bottom: 2px; }
+  #entryDetail .val { margin-bottom: 12px; word-break: break-all; font-family: Consolas, "Microsoft YaHei", monospace; }
+  #entryDetail pre { background: #181825; padding: 8px; border-radius: 4px; overflow-x: auto; font-family: Consolas, monospace; font-size: 11px; line-height: 1.5; }
+  #statusBar { background: #313244; padding: 4px 12px; font-size: 12px; color: #a6adc8; border-top: 1px solid #45475a; }
+  #searchResults { padding: 8px; overflow-y: auto; max-height: 180px; display: none; background: #181825; border-top: 1px solid #45475a; }
+  .hit { padding: 3px 8px; cursor: pointer; font-size: 12px; font-family: Consolas, "Microsoft YaHei", monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hit:hover { background: #313244; }
+  .hit .hidx { color: #6c7086; margin-right: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>MHFZ 文本数据浏览器</h1>
+  <select id="searchFile"></select>
+  <input id="searchQ" placeholder="搜索关键词…" onkeydown="if(event.key==='Enter')doSearch()">
+  <button onclick="doSearch()">搜索</button>
+  <span id="searchInfo" style="color:#a6adc8;font-size:12px"></span>
+</header>
+<main>
+  <aside id="tree"></aside>
+  <section id="main">
+    <div id="listPanel">
+      <div class="panel-head">
+        <span id="fileLabel">未选择文件</span>
+        <span class="count" id="countLabel"></span>
+      </div>
+      <div id="entryList">
+        <table><thead><tr><th>#</th><th>偏移</th><th>长度</th><th>文本</th></tr></thead>
+        <tbody id="entryBody"></tbody></table>
+      </div>
+      <div class="pager" style="padding:6px 10px;border-top:1px solid #45475a">
+        <button onclick="page(-1)">◀</button>
+        <span id="pageLabel">0 / 0</span>
+        <button onclick="page(1)">▶</button>
+        <input id="pageJump" type="number" min="1" value="1">
+        <button onclick="jump()">跳转</button>
+        <select id="pageSize" onchange="reload()">
+          <option>50</option><option selected>200</option><option>1000</option><option>5000</option>
+        </select>
+      </div>
+      <div id="searchResults"></div>
+    </div>
+    <div id="detailPanel">
+      <div class="panel-head"><span>条目详情</span></div>
+      <div id="entryDetail"><div class="field">点击左侧条目查看详情（文本 + Hex）</div></div>
+    </div>
+  </section>
+</main>
+<div id="statusBar"></div>
+<script>
+const state = { files: [], tables: [], pairs: [], currentPath: null, total: 0, pageSize: 200,
+                offset: 0, entries: [], tableMode: null, tableIdx: 0 };
+
+async function api(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error((await r.json()).error || r.status);
+  return r.json();
+}
+
+function fmtSize(n) {
+  if (n > 1048576) return (n / 1048576).toFixed(1) + " MB";
+  if (n > 1024) return (n / 1024).toFixed(1) + " KB";
+  return n + " B";
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function init() {
+  const [files, td] = await Promise.all([api("/api/files"), api("/api/tables")]);
+  state.files = files;
+  state.tables = td.tables;
+  state.pairs = td.pairs;
+  buildTree(files);
+  buildTables();
+  const sel = document.getElementById("searchFile");
+  for (const g of files) for (const f of g.files) {
+    const o = document.createElement("option");
+    o.value = f.path; o.textContent = g.name + "/" + f.path.split("/").pop();
+    sel.appendChild(o);
+  }
+}
+
+function buildTree(files) {
+  const aside = document.getElementById("tree");
+  aside.innerHTML = "";
+  for (const g of files) {
+    const h = document.createElement("h3");
+    h.textContent = g.name + "（" + g.files.length + " 个文件）";
+    aside.appendChild(h);
+    for (const f of g.files) {
+      const d = document.createElement("div");
+      d.className = "tree-item";
+      d.textContent = f.path.split("/").pop();
+      d.title = f.path + "  (" + fmtSize(f.size) + ")";
+      const s = document.createElement("span");
+      s.className = "tree-size"; s.textContent = fmtSize(f.size);
+      d.appendChild(s);
+      d.onclick = () => { setActive(d); openFile(f.path, 0); };
+      aside.appendChild(d);
+    }
+  }
+}
+
+function buildTables() {
+  const aside = document.getElementById("tree");
+  let h = document.createElement("h3");
+  h.textContent = "已知名字表（已验证）";
+  aside.appendChild(h);
+  state.tables.forEach((t, i) => {
+    const d = document.createElement("div");
+    d.className = "table-item";
+    d.textContent = "📋 " + t[3] + " @" + t[1];
+    d.title = t[4];
+    d.onclick = () => { setActive(d, true); openTable(i); };
+    aside.appendChild(d);
+  });
+  h = document.createElement("h3");
+  h.textContent = "ja↔zh 配对";
+  aside.appendChild(h);
+  state.pairs.forEach((p, i) => {
+    const d = document.createElement("div");
+    d.className = "table-item";
+    d.textContent = "🔗 " + p[2];
+    d.title = p[3];
+    d.onclick = () => { setActive(d, true); openPair(i); };
+    aside.appendChild(d);
+  });
+}
+
+function setActive(el, isTable) {
+  document.querySelectorAll(".tree-item, .table-item").forEach(e => e.classList.remove("active"));
+  el.classList.add("active");
+  state.tableMode = isTable || null;
+}
+
+async function openFile(path, offset) {
+  state.currentPath = path; state.tableMode = null; state.offset = offset;
+  document.getElementById("searchResults").style.display = "none";
+  document.getElementById("fileLabel").textContent = path;
+  await reload();
+}
+
+async function openTable(idx) {
+  const t = state.tables[idx];
+  state.currentPath = t[0]; state.tableMode = { kind: "table", idx: idx };
+  document.getElementById("fileLabel").textContent = "📋 " + t[3] + " — " + t[0] + " @" + t[1];
+  document.getElementById("searchResults").style.display = "none";
+  state.offset = 0;
+  await reload();
+}
+
+async function openPair(idx) {
+  const p = state.pairs[idx];
+  state.currentPath = p[0]; state.tableMode = { kind: "pair", idx: idx };
+  document.getElementById("fileLabel").textContent = "🔗 " + p[2] + "（" + p[3] + "）";
+  document.getElementById("searchResults").style.display = "none";
+  state.offset = 0;
+  await reload();
+}
+
+async function reload() {
+  state.pageSize = parseInt(document.getElementById("pageSize").value);
+  const path = state.currentPath;
+  if (!path) return;
+  try {
+    const t = state.tableMode;
+    let d;
+    if (t && t.kind === "pair") {
+      const p = state.pairs[t.idx];
+      d = await api("/api/pair?ja=" + encodeURIComponent(p[0]) +
+                    "&zh=" + encodeURIComponent(p[1]) +
+                    "&offset=" + state.offset + "&limit=" + state.pageSize);
+      state.total = d.common;
+      document.getElementById("countLabel").textContent =
+        "ja " + d.ja_total.toLocaleString() + " 条 / zh " + d.zh_total.toLocaleString() + " 条，配对 " +
+        d.common.toLocaleString() + " 条";
+      renderPairs(d.pairs);
+      updatePager();
+      return;
+    }
+    if (t && t.kind === "table") {
+      const tab = state.tables[t.idx];
+      d = await api("/api/table?path=" + encodeURIComponent(tab[0]) +
+                    "&from=" + tab[1] + "&maxlen=40" +
+                    "&offset=" + state.offset + "&limit=" + state.pageSize);
+      state.total = d.total;
+      document.getElementById("countLabel").textContent =
+        "表 @0x" + tab[1].toString(16) + "，条目 " + d.total.toLocaleString();
+      renderTable(d.entries);
+      updatePager();
+      return;
+    }
+    d = await api("/api/entries?path=" + encodeURIComponent(path) +
+                  "&offset=" + state.offset + "&limit=" + state.pageSize);
+    state.total = d.total;
+    document.getElementById("countLabel").textContent = "共 " + d.total.toLocaleString() + " 条";
+    renderList(d.entries);
+    updatePager();
+  } catch (e) {
+    document.getElementById("statusBar").textContent = "错误: " + e.message;
+  }
+}
+
+function renderList(entries) {
+  const tbody = document.getElementById("entryBody");
+  tbody.innerHTML = "";
+  const base = state.offset;
+  for (const e of entries) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td class='idx'>" + e.idx + "</td>" +
+                   "<td class='off'>0x" + e.start.toString(16) + "</td>" +
+                   "<td class='len'>" + e.len + "</td>" +
+                   "<td class='txt'>" + escapeHtml(e.text.slice(0, 80)) + "</td>";
+    tr.onclick = () => { selectEntry(tr, e); };
+    tbody.appendChild(tr);
+  }
+  updatePager();
+}
+
+function renderTable(entries) {
+  const tbody = document.getElementById("entryBody");
+  tbody.innerHTML = "";
+  const t = state.tables[state.tableMode.idx];
+  entries.forEach((e, i) => {
+    const tr = document.createElement("tr");
+    const idLabel = t[5] ? ("ID " + (state.offset + i + t[5])) : (state.offset + i);
+    tr.innerHTML = "<td class='idx'>" + idLabel + "</td>" +
+                   "<td class='off'>0x" + e.start.toString(16) + "</td>" +
+                   "<td class='len'>" + e.len + "</td>" +
+                   "<td class='txt'>" + escapeHtml(e.text.slice(0, 80)) + "</td>";
+    tr.onclick = () => { selectEntry(tr, e); };
+    tbody.appendChild(tr);
+  });
+}
+
+function renderPairs(pairs) {
+  const tbody = document.getElementById("entryBody");
+  tbody.innerHTML = "";
+  for (const p of pairs) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td class='idx'>" + p.idx + "</td>" +
+                   "<td class='off'>0x" + p.ja.start.toString(16) + "</td>" +
+                   "<td class='len'>" + p.ja.len + "</td>" +
+                   "<td class='txt' style='color:#a6e3a1'>" + escapeHtml(p.ja.text.slice(0, 60)) + "</td>";
+    tr.onclick = () => { selectPair(tr, p); };
+    tbody.appendChild(tr);
+  }
+}
+
+async function selectPair(tr, p) {
+  document.querySelectorAll("tr.active").forEach(x => x.classList.remove("active"));
+  tr.classList.add("active");
+  const pm = state.pairs[state.tableMode.idx];
+  const hja = await api("/api/hex?path=" + encodeURIComponent(pm[0]) + "&pos=" + p.ja.start + "&len=" + Math.max(p.ja.len, 16));
+  const hzh = await api("/api/hex?path=" + encodeURIComponent(pm[1]) + "&pos=" + p.zh.start + "&len=" + Math.max(p.zh.len, 16));
+  const d = document.getElementById("entryDetail");
+  d.innerHTML =
+    "<div class='field'>条目索引（ja↔zh 对应）</div><div class='val'>#" + p.idx + "</div>" +
+    "<div class='field'>日文原文（" + pm[0] + "）</div><div class='val'>" + escapeHtml(p.ja.text) + "</div>" +
+    "<div class='field'>日文 Hex</div><pre>" + hja.lines.map(escapeHtml).join("\n") + "</pre>" +
+    "<div class='field'>中文译文（" + pm[1] + "）</div><div class='val'>" + escapeHtml(p.zh.text) + "</div>" +
+    "<div class='field'>中文 Hex</div><pre>" + hzh.lines.map(escapeHtml).join("\n") + "</pre>";
+}
+
+function updatePager() {
+  const pages = Math.max(1, Math.ceil(state.total / state.pageSize));
+  const cur = Math.floor(state.offset / state.pageSize) + 1;
+  document.getElementById("pageLabel").textContent = cur + " / " + pages;
+  document.getElementById("pageJump").value = cur;
+}
+
+function page(delta) {
+  if (!state.currentPath) return;
+  const pages = Math.max(1, Math.ceil(state.total / state.pageSize));
+  let cur = Math.floor(state.offset / state.pageSize) + delta;
+  if (cur < 1) cur = 1;
+  if (cur > pages) cur = pages;
+  state.offset = (cur - 1) * state.pageSize;
+  reload();
+}
+
+function jump() {
+  const n = parseInt(document.getElementById("pageJump").value) || 1;
+  state.offset = (n - 1) * state.pageSize;
+  reload();
+}
+
+async function selectEntry(tr, e) {
+  document.querySelectorAll("tr.active").forEach(x => x.classList.remove("active"));
+  tr.classList.add("active");
+  const d = document.getElementById("entryDetail");
+  const hex = await api("/api/hex?path=" + encodeURIComponent(state.currentPath) +
+                        "&pos=" + e.start + "&len=" + Math.max(e.len, 16));
+  let idLine = "";
+  if (state.tableMode && state.tableMode[5]) {
+    const t = state.tableMode;
+    idLine = "<div class='field'>游戏 ID</div><div class='val'>" + (e.idx - 0 + t[5]) + "</div>";
+  }
+  d.innerHTML =
+    "<div class='field'>条目索引</div><div class='val'>" + e.idx + "</div>" +
+    "<div class='field'>字节偏移</div><div class='val'>0x" + e.start.toString(16) +
+    " — 0x" + e.end.toString(16) + "（长度 " + e.len + " 字节）</div>" + idLine +
+    "<div class='field'>文本（Shift-JIS 解码）</div><div class='val'>" + escapeHtml(e.text) + "</div>" +
+    "<div class='field'>Hex</div><pre>" + hex.lines.map(escapeHtml).join("\n") + "</pre>";
+}
+
+async function doSearch() {
+  const q = document.getElementById("searchQ").value.trim();
+  const path = document.getElementById("searchFile").value;
+  if (!q || !path) { document.getElementById("searchInfo").textContent = "请选择文件并输入关键词"; return; }
+  document.getElementById("searchInfo").textContent = "搜索中…";
+  try {
+    const d = await api("/api/search?path=" + encodeURIComponent(path) +
+                        "&q=" + encodeURIComponent(q) + "&max=300");
+    const box = document.getElementById("searchResults");
+    document.getElementById("searchInfo").textContent = "找到 " + d.total + " 条（显示前 " + d.hits.length + " 条）";
+    box.innerHTML = "<b style='font-size:12px;color:#a6adc8'>" + escapeHtml(path) + " 中匹配 “" +
+                    escapeHtml(q) + "” 的条目：</b>";
+    for (const h of d.hits) {
+      const div = document.createElement("div");
+      div.className = "hit";
+      const t = h.text;
+      const hl = escapeHtml(t).replace(new RegExp(escapeHtml(q), "g"),
+        "<span class='highlight'>" + escapeHtml(q) + "</span>");
+      div.innerHTML = "<span class='hidx'>#" + h.idx + " @0x" + h.start.toString(16) + "</span>" + hl;
+      div.onclick = async () => {
+        state.currentPath = path; state.tableMode = null; state.offset = 0;
+        document.getElementById("searchResults").style.display = "none";
+        document.getElementById("fileLabel").textContent = path;
+        await openFile(path, 0);
+        const rows = document.querySelectorAll("#entryBody tr");
+        const target = rows[h.idx - state.offset];
+        if (target) target.scrollIntoView({ block: "center" });
+      };
+      box.appendChild(div);
+    }
+    box.style.display = "block";
+  } catch (e) {
+    document.getElementById("searchInfo").textContent = "错误: " + e.message;
+  }
+}
+
+init().catch(e => document.getElementById("statusBar").textContent = "初始化失败: " + e.message);
+</script>
+</body>
+</html>

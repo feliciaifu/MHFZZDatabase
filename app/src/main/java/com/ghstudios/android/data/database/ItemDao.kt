@@ -31,7 +31,7 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
      * to avoid ambiguity
      */
     private fun armor_columns(a : String, i: String) =
-            "$a._id, $i.$column_name name, $i.name_ja, $column_description description, " +
+            "$a._id, ${localizeTableColumn("i", "name")} name, $i.name_ja, $column_description description, " +
             "$a.family, rarity, slot, gender, hunter_type, num_slots, " +
             "defense, max_defense, fire_res, thunder_res, dragon_res, water_res, ice_res, " +
             "type, sub_type, carry_capacity, buy, sell, icon_name, icon_color "
@@ -227,7 +227,7 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
     fun queryArmorUpgrades(id: Long, type: String): ArmorUpgradeCursor {
         val typePredicate: String = '"' + type + '"'
         return ArmorUpgradeCursor(db.rawQuery("""
-            SELECT i._id, i.$column_name name, i.icon_name, i.icon_color, au.descendant_id
+            SELECT i._id, ${localizeTableColumn("i", "name")} name, i.icon_name, i.icon_color, au.descendant_id
             FROM ${S.TABLE_ARMOR_UPGRADE} au
                 LEFT OUTER JOIN items i
                     ON au.descendant_id = i._id
@@ -267,14 +267,14 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
     fun queryArmorSkillPointsByType(armorSlot: String, hunterType: Int): List<ArmorSkillPoints> {
         // note we use armor cursor as its basically armor + a few columns
         val cursor = ArmorCursor(db.rawQuery("""
-            SELECT ${armor_columns("a", "i")}, st._id as st_id, st.$column_name AS st_name, st.name_ja as st_name_ja, its.point_value
+            SELECT ${armor_columns("a", "i")}, st._id as st_id, ${localizeTableColumn("st", "name")} AS st_name, st.name_ja as st_name_ja, its.point_value
             FROM armor a
                 JOIN items i USING (_id)
                 LEFT JOIN item_to_skill_tree its on its.item_id = a._id
                 LEFT JOIN skill_trees st on st._id = its.skill_tree_id
             WHERE (a.hunter_type = @type OR a.hunter_type = 2 OR @type = '2')
               AND (a.slot = @slot OR @slot IS NULL)
-            ORDER BY i.rarity, i.$column_name ASC
+            ORDER BY i.rarity, ${localizeTableColumn("i", "name")} ASC
         """, arrayOf(hunterType.toString(), armorSlot)))
 
         // stores armor and skills as its processed
@@ -324,7 +324,7 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
 
         // todo: localize
         return db.rawQuery("""
-            SELECT af._id, COALESCE(af.$column_name, af.name) name, af.rarity, af.hunter_type
+            SELECT af._id, COALESCE(${localizeTableColumn("af", "name")}, af.name) name, af.rarity, af.hunter_type
             FROM armor_families af
             WHERE ${sqlFilter.predicate}
               AND $soloPredicate
@@ -358,15 +358,15 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
         }
 
         val cursor = ArmorFamilyCursor(db.rawQuery("""
-            SELECT af._id, COALESCE(af.$column_name, af.name) name, af.rarity, af.hunter_type,
-                st.$column_name AS st_name,SUM(its.point_value) AS point_value,SUM(a.defense) AS min,SUM(a.max_defense) AS max
+            SELECT af._id, COALESCE(${localizeTableColumn("af", "name")}, af.name) name, af.rarity, af.hunter_type,
+                ${localizeTableColumn("st", "name")} AS st_name,SUM(its.point_value) AS point_value,SUM(a.defense) AS min,SUM(a.max_defense) AS max
             FROM armor_families af
                 JOIN armor a on a.family=af._id
                 JOIN item_to_skill_tree its on a._id=its.item_id
                 JOIN skill_trees st on st._id=its.skill_tree_id
             WHERE a.hunter_type=@type --OR a.hunter_type=2
             GROUP BY af._id,its.skill_tree_id
-            ORDER BY af.$column_name ASC, point_value DESC;
+            ORDER BY ${localizeTableColumn("af", "name")} ASC, point_value DESC;
         """, arrayOf(type.toString())))
 
         val results = linkedMapOf<Long, ArmorFamily>()
@@ -387,10 +387,10 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
     fun queryComponentsByArmorFamily(family: Long): ComponentCursor {
         return ComponentCursor(db.rawQuery("""
             SELECT c._id,SUM(c.quantity) AS quantity,c.type,MAX(c.key) AS key,
-                   c.created_item_id,cr.$column_name AS crname,cr.type AS crtype,
+                   c.created_item_id,${localizeTableColumn("cr", "name")} AS crname,cr.type AS crtype,
                         cr.rarity AS crrarity,cr.icon_name AS cricon_name,cr.sub_type AS crsub_type,
                         cr.icon_color AS cricon_color,
-                   c.component_item_id,co.$column_name AS coname,co.type AS cotype,
+                   c.component_item_id,${localizeTableColumn("co", "name")} AS coname,co.type AS cotype,
                         co.rarity AS corarity,co.icon_name AS coicon_name,co.sub_type AS cosub_type,
                         co.icon_color AS coicon_color
             FROM armor a
@@ -409,7 +409,7 @@ class ItemDao(val dbMainHelper: SQLiteOpenHelper) {
     fun queryArmorSkillTreePointsBySkillTree(skillTreeId: Long): List<ItemToSkillTree> {
         val cursor = db.rawQuery("""
             SELECT ${armor_columns("a", "i")},
-            st._id as st_id, st.$column_name AS st_name, st.name_ja as st_name_ja, its.point_value
+            st._id as st_id, ${localizeTableColumn("st", "name")} AS st_name, st.name_ja as st_name_ja, its.point_value
             FROM armor a
                 JOIN items i USING (_id)
                 LEFT JOIN item_to_skill_tree its on its.item_id = a._id

@@ -53,7 +53,7 @@ public class WishlistCopyDialogFragment extends DialogFragment {
         String wishlistName = getArguments().getString(ARG_WISHLIST_NAME);
         
         return new AlertDialog.Builder(getActivity())
-            .setTitle("Copy '" + wishlistName + "' wishlist?")
+            .setTitle(getString(R.string.wishlist_copy_confirm, wishlistName))
             .setView(addView)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok, (DialogInterface dialog, int id) -> {

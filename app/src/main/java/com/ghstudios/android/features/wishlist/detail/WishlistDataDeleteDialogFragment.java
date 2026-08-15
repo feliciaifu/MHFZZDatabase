@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 
 import com.ghstudios.android.data.DataManager;
+import com.ghstudios.android.mhgendatabase.R;
 import com.ghstudios.android.util.ExtensionsKt;
 
 public class WishlistDataDeleteDialogFragment extends DialogFragment {
@@ -40,12 +41,12 @@ public class WishlistDataDeleteDialogFragment extends DialogFragment {
         final String name = getArguments().getString(ARG_WISHLIST_DATA_NAME);
         
         return new AlertDialog.Builder(getActivity())
-            .setTitle("Delete '" + name + "' from wishlist?")
+            .setTitle(getString(R.string.wishlist_delete_confirm, name))
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok, (DialogInterface dialog, int id) -> {
                 DataManager.get().getWishlistManager().queryDeleteWishlistData(wishlistDataId);
 
-                Toast.makeText(getActivity(), "Deleted '" + name + "'", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.wishlist_deleted, name), Toast.LENGTH_SHORT).show();
                 sendResult(Activity.RESULT_OK, true);
             })
             .create();

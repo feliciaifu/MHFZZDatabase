@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Leidenskraft"
+                android:text="@string/sample_weapon3"
                 android:id="@+id/name_text"
                 style="@style/text_medium"
                 android:layout_centerVertical="true" />
@@ -67,7 +67,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DMG: 7777"
+                android:text="@string/sample_dmg"
                 android:id="@+id/attack_text"
                 style="@style/text_small"
                 android:layout_gravity="left"
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="68dp"
                 android:layout_height="wrap_content"
-                android:text="DEF: 50"
+                android:text="@string/sample_def"
                 android:id="@+id/defense_text"
                 android:layout_toLeftOf="@+id/affinity_text"
                 android:layout_alignTop="@+id/affinity_text"
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="44dp"
                 android:layout_height="wrap_content"
-                android:text="OOO"
+                android:text="@string/ui_slots_placeholder"
                 android:id="@+id/slots_text"
                 style="@style/text_small"
                 android:gravity="right|top"
@@ -104,7 +104,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="REC: Average[2]"
+                android:text="@string/ui_rec_average"
                 android:id="@+id/recoil_text"
                 android:gravity="right"
                 android:textSize="12sp"
@@ -113,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="REL: Slowest"
+                android:text="@string/ui_rel_slowest"
                 android:id="@+id/reload_text"
                 android:textSize="12sp"
                 android:layout_alignTop="@+id/recoil_text"
@@ -123,7 +123,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="VEL: Right: High"
+                android:text="@string/ui_vel_right_high"
                 android:id="@+id/deviation_text"
                 android:layout_alignParentRight="true"
                 android:textSize="12sp"

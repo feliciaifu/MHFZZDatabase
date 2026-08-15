@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:gravity="center_vertical"
         style="@style/text_medium"
-        android:text="Akantor Carapace"
+        android:text="@string/sample_item"
         android:layout_toRightOf="@+id/item_image"
         android:layout_centerVertical="true" />
     <TextView
@@ -29,7 +29,7 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="4dp"
         style="@style/text_small_secondary"
-        android:text="x1"
+        android:text="×1"
         android:layout_toRightOf="@+id/item" />
 
     <RelativeLayout

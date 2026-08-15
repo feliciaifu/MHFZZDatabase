@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rathalos Gleamsword"
+                android:text="@string/sample_weapon2"
                 android:id="@+id/name_text"
                 style="@style/text_medium"
                 android:layout_centerVertical="true"
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="DMG: 7777"
+                android:text="@string/sample_dmg"
                 android:textSize="12sp" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_weight="1"
                 android:gravity="right|top"
-                android:text="OOO"
+                android:text="@string/ui_slots_placeholder"
                 android:textSize="14sp" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/affinity_text"
                 android:layout_weight="1"
-                android:text="DEF: 50"
+                android:text="@string/sample_def"
                 android:textSize="12sp" />
 
             <TextView
@@ -168,7 +168,7 @@
                 android:layout_alignParentRight="false"
                 android:layout_marginBottom="4dp"
                 android:layout_toLeftOf="@+id/note_image_1"
-                android:text="NOTES: "
+                android:text="@string/ui_notes_colon"
                 android:textSize="12sp"
                 android:visibility="gone" />
 

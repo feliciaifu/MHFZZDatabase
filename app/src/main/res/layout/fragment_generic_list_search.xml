@@ -8,7 +8,7 @@
     <EditText android:id="@+id/input_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search..."
+        android:hint="@string/ui_search_hint"
         android:inputType="textVisiblePassword"
         android:layout_marginLeft="62dp"
         style="@style/text_medium" />

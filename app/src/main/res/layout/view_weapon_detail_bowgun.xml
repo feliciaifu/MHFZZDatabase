@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
                 android:gravity="start"
-                android:text="Lvl"
+                android:text="@string/ui_lvl"
                 android:textColor="@color/text_color_secondary" />
 
             <TextView

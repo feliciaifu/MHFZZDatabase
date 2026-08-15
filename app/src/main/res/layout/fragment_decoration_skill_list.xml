@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".4"
             android:gravity="center"
-            android:text="Skill"
+            android:text="@string/ui_skill"
             android:textColor="@color/text_primary_color" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".6"
             android:gravity="center"
-            android:text="Points"
+            android:text="@string/ui_points"
             android:textColor="@color/text_primary_color" />
     </LinearLayout>
 

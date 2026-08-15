@@ -10,6 +10,7 @@ import com.ghstudios.android.data.classes.MonsterType
 import com.ghstudios.android.data.cursors.MonsterCursor
 import com.ghstudios.android.data.util.SqlFilter
 import com.ghstudios.android.data.util.localizeColumn
+import com.ghstudios.android.data.util.localizeTableColumn
 import com.ghstudios.android.util.toList
 
 /**
@@ -103,7 +104,7 @@ class MonsterDao(val dbMainHelper: SQLiteOpenHelper) {
 
     fun queryDeviantMonsterNames():Array<String>{
         return db.rawQuery("""
-            SELECT DISTINCT permit_monster_id, m.$column_name
+            SELECT DISTINCT permit_monster_id, ${localizeTableColumn("m", "name")}
             FROM quests
             JOIN monsters m ON m._id=permit_monster_id
             WHERE hub="Permit"

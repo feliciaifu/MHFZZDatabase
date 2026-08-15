@@ -84,7 +84,7 @@ class ItemLocationFragment : ListFragment() {
             else {
                 rateTextView.text = gathering.rate.toInt().toString() + "%"
             }
-            amountTextView.text = "x" + gathering.quantity
+            amountTextView.text = "×" + gathering.quantity
 
             itemLayout.tag = gathering.location!!.id
             itemLayout.setOnClickListener(LocationClickListener(context,

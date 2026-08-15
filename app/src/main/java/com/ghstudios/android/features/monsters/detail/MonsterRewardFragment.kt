@@ -74,7 +74,7 @@ class MonsterRewardFragment : ListFragment() {
 
 
             itemTextView.text = cellItemText
-            amountTextView.text = "x$cellAmountText"
+            amountTextView.text = "×$cellAmountText"
 
             val percent = "$cellPercentageText%"
             percentageTextView.text = percent

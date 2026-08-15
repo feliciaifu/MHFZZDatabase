@@ -144,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/text_small_secondary"
-            android:text="Constitution +5"/>
+            android:text="@string/sample_skill"/>
         <TextView
             android:id="@+id/skill_3"
             android:layout_width="wrap_content"

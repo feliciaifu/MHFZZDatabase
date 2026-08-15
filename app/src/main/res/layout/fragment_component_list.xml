@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:gravity="center"
-            android:text="Item"
+            android:text="@string/ui_item"
             android:textColor="@color/text_primary_color" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".35"
             android:gravity="center"
-            android:text="Method"
+            android:text="@string/ui_method"
             android:textColor="@color/text_primary_color" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".15"
             android:gravity="center"
-            android:text="Amt"
+            android:text="@string/ui_amt"
             android:textColor="@color/text_primary_color" />
     </LinearLayout>
 

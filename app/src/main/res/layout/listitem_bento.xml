@@ -64,28 +64,28 @@
                 style="@style/text_small_secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Health:" />
+                android:text="@string/ui_health_colon" />
 
             <TextView
                 android:id="@+id/effectheader_2"
                 style="@style/text_small_secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Stamina:" />
+                android:text="@string/ui_stamina_colon" />
 
             <TextView
                 android:id="@+id/effectheader_3"
                 style="@style/text_small_secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Attack:" />
+                android:text="@string/ui_attack_colon" />
 
             <TextView
                 android:id="@+id/effectheader_4"
                 style="@style/text_small_secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Defense:" />
+                android:text="@string/ui_defense_colon" />
         </LinearLayout>
 
         <LinearLayout

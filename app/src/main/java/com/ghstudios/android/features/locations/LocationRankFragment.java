@@ -172,7 +172,7 @@ public class LocationRankFragment extends ListFragment implements
 			else {
 				rateTextView.setText(Long.toString(rate) + "%");
 			}
-            amountTextView.setText("x" + gathering.getQuantity());
+            amountTextView.setText("×" + gathering.getQuantity());
 			seasonTextView.setText(AssetLoader.localizeGatherModifier(gathering)+AssetLoader.localizeGatherTime(gathering));
 
 					AssetLoader.setIcon(itemImageView,gathering.getItem());

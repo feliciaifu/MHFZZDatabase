@@ -1,5 +1,7 @@
 package com.ghstudios.android.data.classes
 
+import com.ghstudios.android.mhgendatabase.R
+
 /**
  * Created by Joseph on 7/9/2016.
  */
@@ -23,13 +25,12 @@ class PalicoWeapon {
     var sharpness: Int = 0
     var item: Item? = null
 
-    val balanceString: String
+    val balanceStringRes: Int
         get() {
             when (balance) {
-                // todo: support translations in some way
-                0 -> return "Balanced"
-                1 -> return "Melee+"
-                else -> return "Boomerang+"
+                0 -> return R.string.palico_balance_0
+                1 -> return R.string.palico_balance_1
+                else -> return R.string.palico_balance_2
             }
         }
 }

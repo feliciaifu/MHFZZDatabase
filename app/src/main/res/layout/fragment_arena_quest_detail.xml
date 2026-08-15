@@ -16,19 +16,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Quest:"
+            android:text="@string/ui_quest_colon"
             android:textColor="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location:"
+            android:text="@string/ui_location_colon"
             android:textColor="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reward:"
+            android:text="@string/ui_reward_colon"
             android:textColor="@color/text_color" />
 
         <TextView
@@ -46,19 +46,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="S Rank:"
+            android:text="@string/ui_s_rank_colon"
             android:textColor="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A Rank:"
+            android:text="@string/ui_a_rank_colon"
             android:textColor="@color/text_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="B Rank:"
+            android:text="@string/ui_b_rank_colon"
             android:textColor="@color/text_color" />
 
         <TextView
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Goal:"
+            android:text="@string/ui_goal_colon"
             android:textColor="@color/text_color" />
     </LinearLayout>
 

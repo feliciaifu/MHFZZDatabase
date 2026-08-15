@@ -67,7 +67,7 @@ class ItemCombinationAdapterDelegate: SimpleListDelegate<Combining>() {
 
         val min = data.amountMadeMin
         val max = data.amountMadeMax
-        viewHolder.yield_amount.text = "x" + when (min == max) {
+        viewHolder.yield_amount.text = "×" + when (min == max) {
             true -> min.toString()
             false -> "$min-$max"
         }

@@ -12,7 +12,7 @@ import java.util.*
  * A list of language codes available for existing app translations
  */
 //val appLanguages = listOf("en")
-val appLanguages = listOf("en", "ja")
+val appLanguages = listOf("en", "ja", "zh")
 /** A list of all possible supported languages (across all sources)
  * mapping code to name.
  */
@@ -22,7 +22,8 @@ val allLanguages = mapOf(
         //"fr" to "Français",
         //"de" to "Deutsch",
         //"it" to "Italiano",
-        "ja" to "日本語"
+        "ja" to "日本語",
+        "zh" to "中文"
 )
 
 /**

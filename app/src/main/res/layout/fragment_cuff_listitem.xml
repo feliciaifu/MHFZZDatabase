@@ -22,7 +22,7 @@
         android:layout_toRightOf="@+id/item_image"
         android:duplicateParentState="true"
         android:gravity="center_vertical"
-        android:text="Trekker Jewel" />
+        android:text="@string/sample_deco" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_weight=".8"
             android:duplicateParentState="true"
             android:gravity="center_vertical"
-            android:text="Sleep" />
+            android:text="@string/ui_sleep" />
 
         <TextView
             android:id="@+id/skill1_amt"
@@ -75,7 +75,7 @@
             android:layout_weight=".8"
             android:duplicateParentState="true"
             android:gravity="center_vertical"
-            android:text="Mud/Snow"
+            android:text="@string/ui_mud_snow"
             android:visibility="gone" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:layout_weight=".8"
             android:duplicateParentState="true"
             android:gravity="center_vertical"
-            android:text="Mud/Snow"
+            android:text="@string/ui_mud_snow"
             android:visibility="gone" />
 
         <TextView
@@ -134,7 +134,7 @@
             android:layout_weight=".8"
             android:duplicateParentState="true"
             android:gravity="center_vertical"
-            android:text="Mud/Snow"
+            android:text="@string/ui_mud_snow"
             android:visibility="gone" />
 
         <TextView

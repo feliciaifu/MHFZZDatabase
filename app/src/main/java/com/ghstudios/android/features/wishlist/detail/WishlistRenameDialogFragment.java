@@ -47,7 +47,7 @@ public class WishlistRenameDialogFragment extends DialogFragment {
         long wishlistId = getArguments().getLong(ARG_WISHLIST_ID);
         
         return new AlertDialog.Builder(getActivity())
-            .setTitle("Rename '" + getArguments().getString(ARG_WISHLIST_NAME) + "' wishlist?")
+            .setTitle(getString(R.string.wishlist_rename_confirm, getArguments().getString(ARG_WISHLIST_NAME)))
             .setView(addView)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok, (DialogInterface dialog, int id) -> {

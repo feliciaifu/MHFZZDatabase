@@ -69,3 +69,29 @@ local.properties
 .idea/modules/app/MHFZZDatabase.app.iml
 .idea/modules/MHFZZDatabase.iml
 .idea/modules/multilevelexpindlistview/MHFZZDatabase.multilevelexpindlistview.iml
+
+# ===== 追加：构建产物 / 本地数据（中文化管线）=====
+# Gradle / IDE
+**/build/
+.gradle/
+.idea/
+*.iml
+local.properties
+
+# 数据库发布产物（database.db.zip 已跟踪；未压缩 db 与临时文件忽略）
+app/src/main/assets/databases/database.db
+app/src/main/assets/databases/gjhs
+
+# 工具产物
+tools/mhf-wiki-mirror/
+tools/mhf-cn-pipeline/cache/
+tools/mhf-cn-pipeline/database_cn.db
+tools/mhf-cn-pipeline/database_cn.db.zip
+tools/mhf-cn-pipeline/__pycache__/
+tools/mhf-text-browser/node_modules/
+tools/mhf-patcher/bin/
+tools/mhf-patcher/obj/
+
+# Python
+__pycache__/
+*.pyc

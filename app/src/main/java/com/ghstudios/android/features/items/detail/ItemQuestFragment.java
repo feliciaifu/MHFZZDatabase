@@ -96,7 +96,7 @@ public class ItemQuestFragment extends ListFragment {
             questTextView.setText(cellQuestText);
             levelTextView.setText(cellLevelText);
             slotTextView.setText(cellSlotText);
-            amountTextView.setText("x" + cellAmountText);
+            amountTextView.setText("×" + cellAmountText);
 
             String percent = "" + cellPercentageText + "%";
             percentageTextView.setText(percent);

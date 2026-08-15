@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:text="Enlightened Blade" />
+        android:text="@string/sample_weapon" />
 
     <TextView
         android:id="@+id/pts"
@@ -29,7 +29,7 @@
         android:layout_width="216dp"
         android:layout_height="wrap_content"
         style="@style/text_small_secondary"
-        android:text="Unlocks latent weapon elements, and powers up elemental and abnormal status attacks."
+        android:text="@string/sample_weapon_desc"
         android:layout_below="@+id/skill"
         android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"

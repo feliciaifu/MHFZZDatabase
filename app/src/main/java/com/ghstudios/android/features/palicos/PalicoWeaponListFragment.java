@@ -124,7 +124,7 @@ public class PalicoWeaponListFragment extends ListFragment implements
             defense.setVisibility(View.VISIBLE);
 
             TextView balance = view.findViewById(R.id.balance_text);
-            balance.setText(wep.getBalanceString());
+            balance.setText(wep.getBalanceStringRes());
 
             LinearLayout  itemLayout = view.findViewById(R.id.clickable_layout);
 
@@ -167,7 +167,7 @@ public class PalicoWeaponListFragment extends ListFragment implements
             if(wep.getDefense()==0)
                 defense.setVisibility(View.GONE);
             else
-                defense.setText("Def:"+Integer.toString(wep.getDefense()));
+                defense.setText(context.getString(R.string.ui_defense_colon)+Integer.toString(wep.getDefense()));
 
             int color = Color.BLACK;
             switch(wep.getSharpness()){

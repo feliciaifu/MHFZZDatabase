@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 style="@style/text_small_secondary"
                 android:minWidth="54dp"
-                android:text="Melee:"/>
+                android:text="@string/ui_melee_colon"/>
             <TextView
                 android:id="@+id/attack_melee_text"
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 style="@style/text_small_secondary"
                 android:minWidth="54dp"
-                android:text="Ranged:"/>
+                android:text="@string/ui_ranged_colon"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

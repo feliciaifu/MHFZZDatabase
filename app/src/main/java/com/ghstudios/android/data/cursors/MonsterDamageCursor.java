@@ -28,7 +28,11 @@ public class MonsterDamageCursor extends CursorWrapper {
 		MonsterDamage monsterDamage = new MonsterDamage();
 		
 		long id = getLong(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_ID));
-		String body_part = getString(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_BODY_PART));
+		// 中文模式优先显示 body_part_zh（未翻译则回退原文）
+		String body_part = getString(getColumnIndex("body_part_zh"));
+		if (body_part == null || body_part.isEmpty()) {
+			body_part = getString(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_BODY_PART));
+		}
 		int cut = getInt(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_CUT));
 		int impact = getInt(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_IMPACT));
 		int shot = getInt(getColumnIndex(S.COLUMN_MONSTER_DAMAGE_SHOT));

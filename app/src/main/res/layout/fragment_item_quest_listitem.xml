@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/listitem"
     style="@style/list_item_dense"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
             android:gravity="start|center_vertical"
-            android:text="A Crazy Quest"
+            android:text="@string/sample_quest"
             android:textColor="@color/text_color"></TextView>
     </LinearLayout>
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
             android:gravity="left"
-            android:text="A" />
+            android:text="@string/ui_rank_a" />
 
         <TextView
             android:id="@id/amount"
@@ -68,7 +68,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:minWidth="24dp"
-            android:text="x1" />
+            android:text="×1" />
 
         <TextView
             android:id="@+id/percentage"
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
             android:gravity="left"
-            android:text="A" />
+            android:text="@string/ui_rank_a" />
 
         <TextView
             android:id="@id/amount"
@@ -107,7 +107,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:minWidth="24dp"
-            android:text="x1" />
+            android:text="×1" />
 
         <TextView
             android:id="@+id/percentage"

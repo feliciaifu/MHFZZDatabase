@@ -96,15 +96,15 @@ public class PalicoWeaponDetailFragment extends Fragment implements
         _elementRanged.setText(Integer.toString(wep.getElementRanged()));
 
         if(wep.getElement().length()==0)
-            _elementText.setText("None");
+            _elementText.setText(R.string.ui_element_none);
         else
             _elementText.setText(wep.getElement());
 
         _affinityMelee.setText(Integer.toString(wep.getAffinityMelee())+"%");
         _affinityRanged.setText(Integer.toString(wep.getAffinityRanged())+"%");
 
-        _blunt.setText(wep.isBlunt()?"Blunt":"Cutting");
-        _balance.setText(wep.getBalanceString());
+        _blunt.setText(wep.isBlunt()?R.string.ui_weapon_blunt:R.string.ui_weapon_cutting);
+        _balance.setText(wep.getBalanceStringRes());
 
         if(wep.getDefense()==0) {
             _defenseText.setVisibility(View.GONE);

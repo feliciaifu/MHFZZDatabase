@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".6"
             android:gravity="center"
-            android:text="Quest"
+            android:text="@string/ui_quest"
             android:textColor="@color/text_primary_color" />
 
         <TextView

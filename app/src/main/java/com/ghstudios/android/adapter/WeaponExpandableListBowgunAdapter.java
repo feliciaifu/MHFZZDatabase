@@ -69,9 +69,9 @@ public class WeaponExpandableListBowgunAdapter extends WeaponExpandableListGener
                 steady = "L/R:" + tempSteady[1];
             }
 
-            reloadtv.setText("REL: " + reload);
-            recoiltv.setText("REC: " + recoil);
-            steadytv.setText("VEL: " + steady);
+            reloadtv.setText(context.getString(R.string.ui_rel_label) + reload);
+            recoiltv.setText(context.getString(R.string.ui_rec_label) + recoil);
+            steadytv.setText(context.getString(R.string.ui_vel_label) + steady);
         }
     }
 

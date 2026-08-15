@@ -516,7 +516,7 @@
             app:labelText="Capcom Co.,Ltd" />
         <TextView
             style="@style/Description"
-            android:text="Who are the rightful owners of trademarked content. Special thanks for making great Monster Hunter games." />
+            android:text="@string/about_owner_notice" />
 
     </LinearLayout>
 

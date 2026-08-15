@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Item Name"
+            android:text="@string/ui_item_name"
             android:gravity="center_vertical" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="x2"
+            android:text="×2"
             android:layout_marginLeft="2dp"
              />
     </LinearLayout>
@@ -62,7 +62,7 @@
                 android:textColor="@color/text_color"
                 android:layout_below="@+id/name_text"
                 android:layout_toRightOf="@+id/element_text"
-                android:text="test" />
+                android:text="@string/ui_test" />
         </LinearLayout>
 
         <!--
@@ -84,7 +84,7 @@
                 android:textColor="@color/text_color"
                 android:layout_below="@+id/name_text"
                 android:layout_toRightOf="@+id/element_text"
-                android:text="test" />
+                android:text="@string/ui_test" />
         </LinearLayout>
         -->
     </RelativeLayout>

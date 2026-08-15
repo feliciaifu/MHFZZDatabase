@@ -14,6 +14,7 @@ import com.ghstudios.android.data.util.QueryHelper
 import com.ghstudios.android.data.util.SqlFilter
 import com.ghstudios.android.data.util.getLong
 import com.ghstudios.android.data.util.localizeColumn
+import com.ghstudios.android.data.util.localizeTableColumn
 import com.ghstudios.android.util.firstOrNull
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import org.xmlpull.v1.XmlPullParser
@@ -58,7 +59,7 @@ For queries with JOINs:
 
 
 private const val DATABASE_NAME = "database.db"
-private const val DATABASE_VERSION = 14
+private const val DATABASE_VERSION = 32 // …30→31: 怪物伤害部位 body_part_zh；31→32: 狩猎奖励条件 condition_zh
 
 /**
  * Initialize the helper object
@@ -658,14 +659,14 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_COMPONENTS_TYPE] = c + "." + S.COLUMN_COMPONENTS_TYPE
         projectionMap[S.COLUMN_COMPONENTS_KEY] = c + "." + S.COLUMN_COMPONENTS_KEY
 
-        projectionMap[cr + S.COLUMN_ITEMS_NAME] = "$cr.$column_name AS " + cr + S.COLUMN_ITEMS_NAME
+        projectionMap[cr + S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("cr", "name")} AS " + cr + S.COLUMN_ITEMS_NAME
         projectionMap[cr + S.COLUMN_ITEMS_TYPE] = cr + "." + S.COLUMN_ITEMS_TYPE + " AS " + cr + S.COLUMN_ITEMS_TYPE
         projectionMap[cr + S.COLUMN_ITEMS_SUB_TYPE] = cr + "." + S.COLUMN_ITEMS_SUB_TYPE + " AS " + cr + S.COLUMN_ITEMS_SUB_TYPE
         projectionMap[cr + S.COLUMN_ITEMS_RARITY] = cr + "." + S.COLUMN_ITEMS_RARITY + " AS " + cr + S.COLUMN_ITEMS_RARITY
         projectionMap[cr + S.COLUMN_ITEMS_ICON_NAME] = cr + "." + S.COLUMN_ITEMS_ICON_NAME + " AS " + cr + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[cr + S.COLUMN_ITEMS_ICON_COLOR] = cr + "." + S.COLUMN_ITEMS_ICON_COLOR + " AS " + cr + S.COLUMN_ITEMS_ICON_COLOR
 
-        projectionMap[co + S.COLUMN_ITEMS_NAME] = "$co.$column_name AS " + co + S.COLUMN_ITEMS_NAME
+        projectionMap[co + S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("co", "name")} AS " + co + S.COLUMN_ITEMS_NAME
         projectionMap[co + S.COLUMN_ITEMS_TYPE] = co + "." + S.COLUMN_ITEMS_TYPE + " AS " + co + S.COLUMN_ITEMS_TYPE
         projectionMap[co + S.COLUMN_ITEMS_ICON_NAME] = co + "." + S.COLUMN_ITEMS_ICON_NAME + " AS " + co + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[co + S.COLUMN_ITEMS_ICON_COLOR] = co + "." + S.COLUMN_ITEMS_ICON_COLOR + " AS " + co + S.COLUMN_ITEMS_ICON_COLOR
@@ -711,7 +712,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
      * This query filters by name, and not by skill
      */
     fun queryDecorationsSearch(searchTerm: String): DecorationCursor {
-        val searchFilter = SqlFilter("i.$column_name", searchTerm)
+        val searchFilter = SqlFilter(localizeTableColumn("i", "name"), searchTerm)
 
         val qh = QueryHelper()
         qh.Columns = null
@@ -759,7 +760,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
         val projectionMap = HashMap<String, String>()
         projectionMap["_id"] = "i." + S.COLUMN_ITEMS_ID + " AS " + "_id"
-        projectionMap["item_name"] = "i.$column_name AS item_name"
+        projectionMap["item_name"] = "${localizeTableColumn("i", "name")} AS item_name"
         projectionMap[S.COLUMN_ITEMS_ITEM_HID] = "i." + S.COLUMN_ITEMS_ITEM_HID
         projectionMap[S.COLUMN_ITEMS_JPN_NAME] = "i." + S.COLUMN_ITEMS_JPN_NAME
         projectionMap[S.COLUMN_ITEMS_TYPE] = "i." + S.COLUMN_ITEMS_TYPE
@@ -773,16 +774,16 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = "i." + S.COLUMN_ITEMS_ICON_COLOR
         projectionMap[S.COLUMN_DECORATIONS_NUM_SLOTS] = "d." + S.COLUMN_DECORATIONS_NUM_SLOTS
         projectionMap["skill_1_id"] = "s1." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_1_id"
-        projectionMap["skill_1_name"] = "s1.$column_name AS skill_1_name"
+        projectionMap["skill_1_name"] = "${localizeTableColumn("s1", "name")} AS skill_1_name"
         projectionMap["skill_1_point_value"] = "its1." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_1_point_value"
         projectionMap["skill_2_id"] = "s2." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_2_id"
-        projectionMap["skill_2_name"] = "s2.$column_name AS skill_2_name"
+        projectionMap["skill_2_name"] = "${localizeTableColumn("s2", "name")} AS skill_2_name"
         projectionMap["skill_2_point_value"] = "its2." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_2_point_value"
         projectionMap["skill_3_id"] = "s3." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_3_id"
-        projectionMap["skill_3_name"] = "s3.$column_name AS skill_3_name"
+        projectionMap["skill_3_name"] = "${localizeTableColumn("s3", "name")} AS skill_3_name"
         projectionMap["skill_3_point_value"] = "its3." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_3_point_value"
         projectionMap["skill_4_id"] = "s4." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_4_id"
-        projectionMap["skill_4_name"] = "s4.$column_name AS skill_4_name"
+        projectionMap["skill_4_name"] = "${localizeTableColumn("s4", "name")} AS skill_4_name"
         projectionMap["skill_4_point_value"] = "its4." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_4_point_value"
 
         //Create new querybuilder
@@ -851,7 +852,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
      * This query filters by name, and not by skill
      */
     fun queryCuffsSearch(searchTerm: String): CuffCursor {
-        val searchFilter = SqlFilter("i.$column_name", searchTerm)
+        val searchFilter = SqlFilter(localizeTableColumn("i", "name"), searchTerm)
 
         val qh = QueryHelper()
         qh.Columns = null
@@ -899,7 +900,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
         val projectionMap = HashMap<String, String>()
         projectionMap["_id"] = "i." + S.COLUMN_ITEMS_ID + " AS " + "_id"
-        projectionMap["item_name"] = "i.$column_name AS item_name"
+        projectionMap["item_name"] = "${localizeTableColumn("i", "name")} AS item_name"
         projectionMap[S.COLUMN_ITEMS_ITEM_HID] = "i." + S.COLUMN_ITEMS_ITEM_HID
         projectionMap[S.COLUMN_ITEMS_JPN_NAME] = "i." + S.COLUMN_ITEMS_JPN_NAME
         projectionMap[S.COLUMN_ITEMS_TYPE] = "i." + S.COLUMN_ITEMS_TYPE
@@ -913,10 +914,10 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = "i." + S.COLUMN_ITEMS_ICON_COLOR
         projectionMap[S.COLUMN_CUFFS_NUM_SLOTS] = "c." + S.COLUMN_CUFFS_NUM_SLOTS
         projectionMap["skill_1_id"] = "s1." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_1_id"
-        projectionMap["skill_1_name"] = "s1.$column_name AS skill_1_name"
+        projectionMap["skill_1_name"] = "${localizeTableColumn("s1", "name")} AS skill_1_name"
         projectionMap["skill_1_point_value"] = "its1." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_1_point_value"
         projectionMap["skill_2_id"] = "s2." + S.COLUMN_SKILL_TREES_ID + " AS " + "skill_2_id"
-        projectionMap["skill_2_name"] = "s2.$column_name AS skill_2_name"
+        projectionMap["skill_2_name"] = "${localizeTableColumn("s2", "name")} AS skill_2_name"
         projectionMap["skill_2_point_value"] = "its2." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE + " AS " + "skill_2_point_value"
 
         //Create new querybuilder
@@ -1034,10 +1035,10 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_GATHERING_TIME] = g + "." + S.COLUMN_GATHERING_TIME
         projectionMap[S.COLUMN_GATHERING_QUANTITY] = g + "." + S.COLUMN_GATHERING_QUANTITY
 
-        projectionMap[i + S.COLUMN_ITEMS_NAME] = "$i.$column_name AS " + i + S.COLUMN_ITEMS_NAME
+        projectionMap[i + S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS " + i + S.COLUMN_ITEMS_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = i + "." + S.COLUMN_ITEMS_ICON_COLOR
-        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "$l.$column_name AS " + l + S.COLUMN_LOCATIONS_NAME
+        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "${localizeTableColumn("l", "name")} AS " + l + S.COLUMN_LOCATIONS_NAME
         projectionMap[l + S.COLUMN_LOCATIONS_MAP] = l + "." + S.COLUMN_LOCATIONS_MAP + " AS " + l + S.COLUMN_LOCATIONS_MAP
 
         //Create new querybuilder
@@ -1130,13 +1131,13 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_ITEM_TO_SKILL_TREE_SKILL_TREE_ID] = itst + "." + S.COLUMN_ITEM_TO_SKILL_TREE_SKILL_TREE_ID
         projectionMap[S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE] = itst + "." + S.COLUMN_ITEM_TO_SKILL_TREE_POINT_VALUE
 
-        projectionMap[i + S.COLUMN_ITEMS_NAME] = "$i.$column_name AS " + i + S.COLUMN_ITEMS_NAME
+        projectionMap[i + S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS " + i + S.COLUMN_ITEMS_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = i + "." + S.COLUMN_ITEMS_ICON_COLOR
         projectionMap[S.COLUMN_ITEMS_TYPE] = i + "." + S.COLUMN_ITEMS_TYPE
         projectionMap[S.COLUMN_ITEMS_SUB_TYPE] = i + "." + S.COLUMN_ITEMS_SUB_TYPE
         projectionMap[S.COLUMN_ITEMS_RARITY] = i + "." + S.COLUMN_ITEMS_RARITY
-        projectionMap[s + S.COLUMN_SKILL_TREES_NAME] = "$s.$column_name AS " + s + S.COLUMN_SKILL_TREES_NAME
+        projectionMap[s + S.COLUMN_SKILL_TREES_NAME] = "${localizeTableColumn("s", "name")} AS " + s + S.COLUMN_SKILL_TREES_NAME
 
         //Create new querybuilder
         val QB = SQLiteQueryBuilder()
@@ -1250,7 +1251,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
         return BentoCursor(db.rawQuery("""
             SELECT 
-                i._id, i.$column_name name, i.icon_name, 
+                i._id, ${localizeTableColumn("i", "name")} name, i.icon_name, 
                 effect1, effect2, effect3, effect4, 
                 ingredient1_id, 
                 ingredient2_id, 
@@ -1298,7 +1299,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
     fun queryBento(id: Long): Bento? {
         return BentoCursor(db.rawQuery("""
-            SELECT i._id, i.$column_name name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
+            SELECT i._id, ${localizeTableColumn("i", "name")} name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
             FROM ${S.TABLE_BENTO} b
                 LEFT OUTER JOIN items i
                     ON b.bento_id = i._id
@@ -1313,7 +1314,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
     fun queryBentoRecipes(id: Long): List<Bento>? {
         return BentoCursor(db.rawQuery("""
-            SELECT i._id, i.$column_name name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
+            SELECT i._id, ${localizeTableColumn("i", "name")} name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
             FROM ${S.TABLE_BENTO} b
                 LEFT OUTER JOIN items i
                     ON b.bento_id = i._id
@@ -1327,7 +1328,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
     fun queryRecipesOnItemID(id: Long): BentoCursor {
         return BentoCursor(db.rawQuery("""
-            SELECT i._id, i.$column_name name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
+            SELECT i._id, ${localizeTableColumn("i", "name")} name, i.icon_name, effect1, effect2, effect3, effect4, ingredient1_id, ingredient2_id, $column_item_1_name as item_1_name, i1.icon_name as item_1_icon_name,i1.icon_color as item_1_icon_color, $column_item_2_name as item_2_name, i2.icon_name as item_2_icon_name,i2.icon_color as item_2_icon_color
             FROM ${S.TABLE_BENTO} b
                 LEFT OUTER JOIN items i
                     ON b.bento_id = i._id
@@ -1535,13 +1536,13 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap["rest_area"] = h + "." + S.COLUMN_HABITAT_REST + " AS " + "rest_area"
 
         projectionMap[l + S.COLUMN_LOCATIONS_ID] = l + "." + S.COLUMN_LOCATIONS_ID + " AS " + l + S.COLUMN_LOCATIONS_ID
-        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "$l.$column_name AS " + l + S.COLUMN_LOCATIONS_NAME
+        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "${localizeTableColumn("l", "name")} AS " + l + S.COLUMN_LOCATIONS_NAME
         projectionMap[l + S.COLUMN_LOCATIONS_MAP] = l + "." + S.COLUMN_LOCATIONS_MAP + " AS " + l + S.COLUMN_LOCATIONS_MAP
 
         projectionMap[m + S.COLUMN_MONSTERS_ID] = m + "." + S.COLUMN_MONSTERS_ID + " AS " + m + S.COLUMN_MONSTERS_ID
         projectionMap[m + S.COLUMN_MONSTERS_SORT_NAME] = m + "." + S.COLUMN_MONSTERS_SORT_NAME + " AS " + m + S.COLUMN_MONSTERS_SORT_NAME
-        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "$m.$column_name AS " + m + S.COLUMN_MONSTERS_NAME
-        projectionMap[m + S.COLUMN_MONSTERS_CLASS_TYPE] = "$m.$column_name AS " + m + S.COLUMN_MONSTERS_CLASS_TYPE
+        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "${localizeTableColumn("m", "name")} AS " + m + S.COLUMN_MONSTERS_NAME
+        projectionMap[m + S.COLUMN_MONSTERS_CLASS_TYPE] = "${localizeTableColumn("m", "name")} AS " + m + S.COLUMN_MONSTERS_CLASS_TYPE
         projectionMap[m + S.COLUMN_MONSTERS_CLASS] = m + "." + S.COLUMN_MONSTERS_CLASS + " AS " + m + S.COLUMN_MONSTERS_CLASS
         projectionMap[m + S.COLUMN_MONSTERS_FILE_LOCATION] = m + "." + S.COLUMN_MONSTERS_FILE_LOCATION + " AS " + m + S.COLUMN_MONSTERS_FILE_LOCATION
 
@@ -1660,7 +1661,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         val projectionMap = LinkedHashMap<String, String>()
 
         projectionMap["_id"] = m + "." + S.COLUMN_MONSTERS_ID + " AS " + "_id"
-        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "$m.$column_name AS " + m + S.COLUMN_MONSTERS_NAME
+        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "${localizeTableColumn("m", "name")} AS " + m + S.COLUMN_MONSTERS_NAME
         projectionMap[S.COLUMN_MONSTERS_FILE_LOCATION] = m + "." + S.COLUMN_MONSTERS_FILE_LOCATION
         projectionMap[S.COLUMN_MONSTERS_CLASS_TYPE] = m + "." + S.COLUMN_MONSTERS_CLASS_TYPE
 
@@ -1697,9 +1698,9 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_MONSTER_TO_QUEST_UNSTABLE] = mtq + "." + S.COLUMN_MONSTER_TO_QUEST_UNSTABLE
         projectionMap[S.COLUMN_MONSTER_TO_QUEST_HYPER] = mtq + "." + S.COLUMN_MONSTER_TO_QUEST_HYPER
 
-        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "$m.$column_name AS " + m + S.COLUMN_MONSTERS_NAME
+        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "${localizeTableColumn("m", "name")} AS " + m + S.COLUMN_MONSTERS_NAME
         projectionMap[S.COLUMN_MONSTERS_FILE_LOCATION] = m + "." + S.COLUMN_MONSTERS_FILE_LOCATION
-        projectionMap[q + S.COLUMN_QUESTS_NAME] = "$q.$column_name AS " + q + S.COLUMN_QUESTS_NAME
+        projectionMap[q + S.COLUMN_QUESTS_NAME] = "${localizeTableColumn("q", "name")} AS " + q + S.COLUMN_QUESTS_NAME
         projectionMap[S.COLUMN_QUESTS_HUB] = q + "." + S.COLUMN_QUESTS_HUB
         projectionMap[S.COLUMN_QUESTS_STARS] = q + "." + S.COLUMN_QUESTS_STARS
 
@@ -1741,9 +1742,9 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_MONSTER_TO_QUEST_UNSTABLE] = mtq + "." + S.COLUMN_MONSTER_TO_QUEST_UNSTABLE
         projectionMap[S.COLUMN_MONSTER_TO_QUEST_HYPER] = mtq + "." + S.COLUMN_MONSTER_TO_QUEST_HYPER
 
-        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "$m.$column_name AS " + m + S.COLUMN_MONSTERS_NAME
+        projectionMap[m + S.COLUMN_MONSTERS_NAME] = "${localizeTableColumn("m", "name")} AS " + m + S.COLUMN_MONSTERS_NAME
         projectionMap[S.COLUMN_MONSTERS_FILE_LOCATION] = m + "." + S.COLUMN_MONSTERS_FILE_LOCATION
-        projectionMap[q + S.COLUMN_QUESTS_NAME] = "$q.$column_name AS " + q + S.COLUMN_QUESTS_NAME
+        projectionMap[q + S.COLUMN_QUESTS_NAME] = "${localizeTableColumn("q", "name")} AS " + q + S.COLUMN_QUESTS_NAME
         projectionMap[S.COLUMN_QUESTS_HUB] = q + "." + S.COLUMN_QUESTS_HUB
         projectionMap[S.COLUMN_QUESTS_STARS] = q + "." + S.COLUMN_QUESTS_STARS
 
@@ -1824,7 +1825,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         qh.OrderBy = null
         qh.Limit = null
 
-        modifyQueryForSearch(qh, "q.$column_name", searchTerm)
+        modifyQueryForSearch(qh, localizeTableColumn("q", "name"), searchTerm)
 
         return QuestCursor(wrapJoinHelper(builderQuest(), qh))
     }
@@ -1925,9 +1926,9 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         val column_hirer = localizeColumn(S.COLUMN_QUESTS_HIRER)
 
         projectionMap["_id"] = q + "." + S.COLUMN_QUESTS_ID + " AS " + "_id"
-        projectionMap[q + S.COLUMN_QUESTS_NAME] = "$q.$column_name AS " + q + S.COLUMN_QUESTS_NAME
+        projectionMap[q + S.COLUMN_QUESTS_NAME] = "${localizeTableColumn("q", "name")} AS " + q + S.COLUMN_QUESTS_NAME
         projectionMap[q + S.COLUMN_QUESTS_JPN_NAME] = q + "." + S.COLUMN_QUESTS_JPN_NAME + " AS " + q + S.COLUMN_QUESTS_JPN_NAME
-        projectionMap[S.COLUMN_QUESTS_GOAL] = "$q.$column_goal AS ${S.COLUMN_QUESTS_GOAL}"
+        projectionMap[S.COLUMN_QUESTS_GOAL] = "${localizeTableColumn("q", "goal")} AS ${S.COLUMN_QUESTS_GOAL}"
         projectionMap[S.COLUMN_QUESTS_HUB] = q + "." + S.COLUMN_QUESTS_HUB
         projectionMap[S.COLUMN_QUESTS_RANK] = q + "." + S.COLUMN_QUESTS_RANK
         projectionMap[S.COLUMN_QUESTS_TYPE] = q + "." + S.COLUMN_QUESTS_TYPE
@@ -1937,18 +1938,18 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_QUESTS_FEE] = q + "." + S.COLUMN_QUESTS_FEE
         projectionMap[S.COLUMN_QUESTS_REWARD] = q + "." + S.COLUMN_QUESTS_REWARD
         projectionMap[S.COLUMN_QUESTS_HRP] = q + "." + S.COLUMN_QUESTS_HRP
-        projectionMap[S.COLUMN_QUESTS_SUB_A_GOAL] =  "$q.$column_sub_a_goal AS ${S.COLUMN_QUESTS_SUB_A_GOAL}"
-        projectionMap[S.COLUMN_QUESTS_SUB_B_GOAL] =  "$q.$column_sub_b_goal AS ${S.COLUMN_QUESTS_SUB_B_GOAL}"
+        projectionMap[S.COLUMN_QUESTS_SUB_A_GOAL] =  "${localizeTableColumn("q", "sub_goal_a")} AS ${S.COLUMN_QUESTS_SUB_A_GOAL}"
+        projectionMap[S.COLUMN_QUESTS_SUB_B_GOAL] =  "${localizeTableColumn("q", "sub_goal_b")} AS ${S.COLUMN_QUESTS_SUB_B_GOAL}"
         projectionMap[S.COLUMN_QUESTS_SUB_A_REWARD] = q + "." + S.COLUMN_QUESTS_SUB_A_REWARD
         projectionMap[S.COLUMN_QUESTS_SUB_A_HRP] = q + "." + S.COLUMN_QUESTS_SUB_A_HRP
         projectionMap[S.COLUMN_QUESTS_SUB_B_REWARD] = q + "." + S.COLUMN_QUESTS_SUB_B_REWARD
         projectionMap[S.COLUMN_QUESTS_SUB_B_HRP] = q + "." + S.COLUMN_QUESTS_SUB_B_HRP
         projectionMap[S.COLUMN_QUESTS_GOAL_TYPE] = q + "." + S.COLUMN_QUESTS_GOAL_TYPE
         projectionMap[S.COLUMN_QUESTS_HUNTER_TYPE] = q + "." + S.COLUMN_QUESTS_HUNTER_TYPE
-        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "$l.$column_name AS " + l + S.COLUMN_LOCATIONS_NAME
+        projectionMap[l + S.COLUMN_LOCATIONS_NAME] = "${localizeTableColumn("l", "name")} AS " + l + S.COLUMN_LOCATIONS_NAME
         projectionMap[S.COLUMN_LOCATIONS_MAP] = l + "." + S.COLUMN_LOCATIONS_MAP
-        projectionMap[S.COLUMN_QUESTS_FLAVOR] = "$q.$column_flavor AS ${S.COLUMN_QUESTS_FLAVOR}"
-        projectionMap[S.COLUMN_QUESTS_HIRER] = "$q.$column_hirer AS ${S.COLUMN_QUESTS_HIRER}"
+        projectionMap[S.COLUMN_QUESTS_FLAVOR] = "${localizeTableColumn("q", "flavor")} AS ${S.COLUMN_QUESTS_FLAVOR}"
+        projectionMap[S.COLUMN_QUESTS_HIRER] = "${localizeTableColumn("q", "hirer")} AS ${S.COLUMN_QUESTS_HIRER}"
         projectionMap[S.COLUMN_QUESTS_METADATA] = q + "." + S.COLUMN_QUESTS_METADATA
         projectionMap[S.COLUMN_QUESTS_PERMIT_MONSTER_ID] = q + "." + S.COLUMN_QUESTS_PERMIT_MONSTER_ID
 
@@ -2026,10 +2027,10 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_QUEST_REWARDS_PERCENTAGE] = qr + "." + S.COLUMN_QUEST_REWARDS_PERCENTAGE
         projectionMap[S.COLUMN_QUEST_REWARDS_STACK_SIZE] = qr + "." + S.COLUMN_QUEST_REWARDS_STACK_SIZE
 
-        projectionMap[i + S.COLUMN_ITEMS_NAME] = "$i.$column_name AS " + i + S.COLUMN_ITEMS_NAME
+        projectionMap[i + S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS " + i + S.COLUMN_ITEMS_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = i + "." + S.COLUMN_ITEMS_ICON_COLOR
-        projectionMap[q + S.COLUMN_QUESTS_NAME] = "$q.$column_name AS " + q + S.COLUMN_QUESTS_NAME
+        projectionMap[q + S.COLUMN_QUESTS_NAME] = "${localizeTableColumn("q", "name")} AS " + q + S.COLUMN_QUESTS_NAME
         projectionMap[S.COLUMN_QUESTS_HUB] = q + "." + S.COLUMN_QUESTS_HUB
         projectionMap[S.COLUMN_QUESTS_STARS] = q + "." + S.COLUMN_QUESTS_STARS
 
@@ -2285,7 +2286,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_WEAPONS_SPECIAL_AMMO] = w + "." + S.COLUMN_WEAPONS_SPECIAL_AMMO
         projectionMap[S.COLUMN_WEAPONS_REACH] = w + "." + S.COLUMN_WEAPONS_REACH
 
-        projectionMap[S.COLUMN_ITEMS_NAME] = "$i.$column_name AS ${S.COLUMN_ITEMS_NAME}"
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS ${S.COLUMN_ITEMS_NAME}"
         projectionMap[S.COLUMN_ITEMS_JPN_NAME] = i + "." + S.COLUMN_ITEMS_JPN_NAME
         projectionMap[S.COLUMN_ITEMS_TYPE] = i + "." + S.COLUMN_ITEMS_TYPE
         projectionMap[S.COLUMN_ITEMS_SUB_TYPE] = i + "." + S.COLUMN_ITEMS_SUB_TYPE
@@ -2293,7 +2294,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_ITEMS_CARRY_CAPACITY] = i + "." + S.COLUMN_ITEMS_CARRY_CAPACITY
         projectionMap[S.COLUMN_ITEMS_BUY] = i + "." + S.COLUMN_ITEMS_BUY
         projectionMap[S.COLUMN_ITEMS_SELL] = i + "." + S.COLUMN_ITEMS_SELL
-        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "$i.$column_description AS ${S.COLUMN_ITEMS_DESCRIPTION}"
+        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "${localizeTableColumn("i", "description")} AS ${S.COLUMN_ITEMS_DESCRIPTION}"
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
 
         //Create new querybuilder
@@ -2316,7 +2317,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 	 */
     fun queryWeaponTreeParent(id: Long): WeaponTreeCursor {
         return WeaponTreeCursor(writableDatabase.rawQuery("""
-            SELECT i._id AS _id,i.name AS name FROM components c
+            SELECT i._id AS _id,${localizeTableColumn("i", "name")} AS name FROM components c
             INNER JOIN weapons w on w._id = c.component_item_id
             JOIN items i ON i._id = w._id
             WHERE c.created_item_id=?
@@ -2326,7 +2327,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
     fun queryWeaponFamilyBranches(id: Long): WeaponTreeCursor {
         // roughly equivalent to c.component family = family AND c.component family != c.created family
         return WeaponTreeCursor(writableDatabase.rawQuery("""
-            SELECT i._id AS _id,i.name AS name FROM components c
+            SELECT i._id AS _id,${localizeTableColumn("i", "name")} AS name FROM components c
             JOIN weapons w on w._id = c.created_item_id
             JOIN items i ON i._id = w._id
             WHERE (c.component_item_id & ${S.WEAPON_FAMILY_MASK})= (? & ${S.WEAPON_FAMILY_MASK}) AND
@@ -2385,7 +2386,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         val projectionMap = HashMap<String, String>()
 
         projectionMap["_id"] = i2 + "." + S.COLUMN_ITEMS_ID + " AS " + "_id"
-        projectionMap[S.COLUMN_ITEMS_NAME] = i2 + "." + S.COLUMN_ITEMS_NAME
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i2", "name")} AS ${S.COLUMN_ITEMS_NAME}"
 
         //Create new querybuilder
         val QB = SQLiteQueryBuilder()
@@ -2420,7 +2421,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         val projectionMap = HashMap<String, String>()
 
         projectionMap["_id"] = i2 + "." + S.COLUMN_ITEMS_ID + " AS " + "_id"
-        projectionMap[S.COLUMN_ITEMS_NAME] = i2 + "." + S.COLUMN_ITEMS_NAME
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i2", "name")} AS ${S.COLUMN_ITEMS_NAME}"
 
         //Create new querybuilder
         val QB = SQLiteQueryBuilder()
@@ -2487,9 +2488,9 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_PALICO_WEAPONS_AFFINITY_MELEE] = w + "." + S.COLUMN_PALICO_WEAPONS_AFFINITY_MELEE
         projectionMap[S.COLUMN_PALICO_WEAPONS_AFFINITY_RANGED] = w + "." + S.COLUMN_PALICO_WEAPONS_AFFINITY_RANGED
 
-        projectionMap[S.COLUMN_ITEMS_NAME] = "$i.$column_name AS ${S.COLUMN_ITEMS_NAME}"
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS ${S.COLUMN_ITEMS_NAME}"
         projectionMap[S.COLUMN_ITEMS_RARITY] = i + "." + S.COLUMN_ITEMS_RARITY
-        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "$i.$column_description AS ${S.COLUMN_ITEMS_DESCRIPTION}"
+        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "${localizeTableColumn("i", "description")} AS ${S.COLUMN_ITEMS_DESCRIPTION}"
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = i + "." + S.COLUMN_ITEMS_ICON_COLOR
 
@@ -2550,9 +2551,9 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_PALICO_ARMOR_THUNDER_RES] = w + "." + S.COLUMN_PALICO_ARMOR_THUNDER_RES
         projectionMap[S.COLUMN_PALICO_ARMOR_WATER_RES] = w + "." + S.COLUMN_PALICO_ARMOR_WATER_RES
 
-        projectionMap[S.COLUMN_ITEMS_NAME] = "$i.$column_name AS ${S.COLUMN_ITEMS_NAME}"
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} AS ${S.COLUMN_ITEMS_NAME}"
         projectionMap[S.COLUMN_ITEMS_RARITY] = i + "." + S.COLUMN_ITEMS_RARITY
-        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "$i.$column_description AS ${S.COLUMN_ITEMS_DESCRIPTION}"
+        projectionMap[S.COLUMN_ITEMS_DESCRIPTION] = "${localizeTableColumn("i", "description")} AS ${S.COLUMN_ITEMS_DESCRIPTION}"
         projectionMap[S.COLUMN_ITEMS_ICON_NAME] = i + "." + S.COLUMN_ITEMS_ICON_NAME
         projectionMap[S.COLUMN_ITEMS_ICON_COLOR] = i + "." + S.COLUMN_ITEMS_ICON_COLOR
 
@@ -2859,7 +2860,7 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
         projectionMap[S.COLUMN_WISHLIST_DATA_SATISFIED] = wd + "." + S.COLUMN_WISHLIST_DATA_SATISFIED
         projectionMap[S.COLUMN_WISHLIST_DATA_PATH] = wd + "." + S.COLUMN_WISHLIST_DATA_PATH
 
-        projectionMap[S.COLUMN_ITEMS_NAME] = "$i.$column_name as name"
+        projectionMap[S.COLUMN_ITEMS_NAME] = "${localizeTableColumn("i", "name")} as name"
         //projectionMap.put(S.COLUMN_ITEMS_JPN_NAME, i + "." + S.COLUMN_ITEMS_JPN_NAME);
         projectionMap[S.COLUMN_ITEMS_TYPE] = i + "." + S.COLUMN_ITEMS_TYPE
         projectionMap[S.COLUMN_ITEMS_SUB_TYPE] = i + "." + S.COLUMN_ITEMS_SUB_TYPE

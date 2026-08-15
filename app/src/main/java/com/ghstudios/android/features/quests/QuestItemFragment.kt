@@ -60,7 +60,7 @@ class QuestItemFragment : ListFragment() {
 
             mapTextView.text = gathering.area
             methodTextView.text = AssetLoader.localizeGatherNodeFull(gathering)
-            amountTextView.text = "x" + gathering.quantity.toString()
+            amountTextView.text = "×" + gathering.quantity.toString()
             rateTextView.text = rate.toString() + "%"
         }
     }
@@ -92,7 +92,7 @@ class QuestItemFragment : ListFragment() {
             rankTextView.text = hr.rank
             monsterTextView.text = hr.monster?.name
             methodTextView.text = hr.condition
-            amountTextView.text = "x$cellAmountText"
+            amountTextView.text = "×$cellAmountText"
 
             val percent = "$cellPercentageText%"
             percentageTextView.text = percent

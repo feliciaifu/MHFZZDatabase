@@ -44,7 +44,7 @@ class ItemStoreAdapterDelegate: SimpleListDelegate<StoreOffer>() {
         viewHolder.store_name.text = data.store
         viewHolder.store_notes.text = data.notes
         viewHolder.store_cost.text = data.cost
-        viewHolder.store_quantity.text = "x${data.quantity}"
+        viewHolder.store_quantity.text = "×${data.quantity}"
 
 
 

@@ -21,7 +21,7 @@
                 style="@style/text_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type"
+                android:text="@string/ui_type"
                 android:textStyle="bold" />
 
             <Spinner
@@ -44,7 +44,7 @@
                 style="@style/text_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Slots"
+                android:text="@string/ui_slots"
                 android:textStyle="bold" />
 
             <Spinner
