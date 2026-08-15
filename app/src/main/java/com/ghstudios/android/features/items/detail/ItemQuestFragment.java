@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ghstudios.android.AssetLoader;
 import com.ghstudios.android.data.classes.QuestReward;
 import com.ghstudios.android.data.cursors.QuestRewardCursor;
+import com.ghstudios.android.features.quests.QuestRewardFragment;
 import com.ghstudios.android.mhgendatabase.R;
 import com.ghstudios.android.ClickListeners.QuestClickListener;
 import com.github.monxalo.android.widget.SectionCursorAdapter;
@@ -89,7 +90,7 @@ public class ItemQuestFragment extends ListFragment {
 
             String cellQuestText = questReward.getQuest().getName();
             String cellLevelText = questReward.getQuest().getStarString();
-            String cellSlotText = questReward.getRewardSlot();
+            String cellSlotText = QuestRewardFragment.localizeSlot(context, questReward.getRewardSlot());
             int cellAmountText = questReward.getStackSize();
             int cellPercentageText = questReward.getPercentage();
 

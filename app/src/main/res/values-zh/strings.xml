@@ -233,6 +233,9 @@
     <string name="quest_group_low_rank">下位</string>
     <string name="quest_group_g_rank">G级</string>
     <string name="quest_group_unknown"></string>
+    <string name="quest_group_reward_main">主要报酬</string>
+    <string name="quest_group_reward_sub_a">副任务 A</string>
+    <string name="quest_group_reward_sub_b">副任务 B</string>
     <string name="title_items">道具</string>
     <string name="title_bentos">便当</string>
     <string name="title_palicos">猫</string>

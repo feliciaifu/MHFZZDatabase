@@ -24,6 +24,23 @@ import java.util.List;
 public class QuestRewardFragment extends ListFragment{
 	private static final String ARG_QUEST_ID = "QUEST_ID";
 
+	/** 报酬栏位本地化：Main/Subquest A/Subquest B → 语言字符串（en/zh） */
+	public static String localizeSlot(Context context, String slot) {
+		if (slot == null) {
+			return "";
+		}
+		switch (slot) {
+			case "Main":
+				return context.getString(R.string.quest_group_reward_main);
+			case "Subquest A":
+				return context.getString(R.string.quest_group_reward_sub_a);
+			case "Subquest B":
+				return context.getString(R.string.quest_group_reward_sub_b);
+			default:
+				return slot;
+		}
+	}
+
 	public static QuestRewardFragment newInstance(long questId) {
 		Bundle args = new Bundle();
 		args.putLong(ARG_QUEST_ID, questId);
@@ -57,7 +74,7 @@ public class QuestRewardFragment extends ListFragment{
 
 		@Override
 		public String getGroupName(QuestReward item) {
-			return item.getRewardSlot();
+			return localizeSlot(getContext(), item.getRewardSlot());
 		}
 
 		@Override

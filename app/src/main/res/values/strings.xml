@@ -233,6 +233,9 @@
     <string name="quest_group_low_rank">Low Rank</string>
     <string name="quest_group_g_rank">G Rank</string>
     <string name="quest_group_unknown"></string>
+    <string name="quest_group_reward_main">Main</string>
+    <string name="quest_group_reward_sub_a">Subquest A</string>
+    <string name="quest_group_reward_sub_b">Subquest B</string>
     <string name="title_items">Items</string>
     <string name="title_bentos">Bento</string>
     <string name="title_palicos">Palicos</string>
