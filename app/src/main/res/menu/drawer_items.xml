@@ -39,6 +39,11 @@
             android:title="@string/title_palicos" />
 
         <item
+            android:id="@+id/nav_horns"
+            android:icon="@drawable/drawer_weapons"
+            android:title="@string/title_horns" />
+
+        <item
             android:id="@+id/nav_combining"
             android:icon="@drawable/drawer_combining"
             android:title="@string/title_combining" />

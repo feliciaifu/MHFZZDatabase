@@ -13,9 +13,11 @@ import com.ghstudios.android.data.cursors.*
 import com.ghstudios.android.data.util.QueryHelper
 import com.ghstudios.android.data.util.SqlFilter
 import com.ghstudios.android.data.util.getLong
+import com.ghstudios.android.data.util.getString
 import com.ghstudios.android.data.util.localizeColumn
 import com.ghstudios.android.data.util.localizeTableColumn
 import com.ghstudios.android.util.firstOrNull
+import com.ghstudios.android.util.toList
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
@@ -59,7 +61,7 @@ For queries with JOINs:
 
 
 private const val DATABASE_NAME = "database.db"
-private const val DATABASE_VERSION = 32 // …30→31: 怪物伤害部位 body_part_zh；31→32: 狩猎奖励条件 condition_zh
+private const val DATABASE_VERSION = 35 // …33→34: 删除猫铠甲空槽；34→35: 新增狩猎笛旋律表 horn_songs+指南页面
 
 /**
  * Initialize the helper object
@@ -2434,6 +2436,26 @@ internal class MonsterHunterDatabaseHelper constructor(ctx: Context):
 
         QB.setProjectionMap(projectionMap)
         return QB
+    }
+
+    /**
+     * ****************************** HORN SONG QUERIES *****************************************
+     */
+
+    fun queryHornSongs(): List<HornSong> {
+        return readableDatabase.rawQuery("""
+            SELECT _id, category_zh, name_zh, notes, notes_color
+            FROM horn_songs
+            ORDER BY category_zh, _id
+        """, null).toList {
+            HornSong().apply {
+                id = it.getLong("_id")
+                category = it.getString("category_zh") ?: ""
+                name = it.getString("name_zh") ?: ""
+                notes = it.getString("notes") ?: ""
+                notesColor = it.getString("notes_color") ?: ""
+            }
+        }
     }
 
     /**

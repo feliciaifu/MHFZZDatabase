@@ -37,6 +37,7 @@ import com.ghstudios.android.features.armorsetbuilder.list.ASBSetListPagerActivi
 import com.ghstudios.android.features.armor.list.ArmorListPagerActivity;
 import com.ghstudios.android.features.combining.CombiningListActivity;
 import com.ghstudios.android.features.decorations.list.DecorationListActivity;
+import com.ghstudios.android.features.horns.HornGuideActivity;
 import com.ghstudios.android.features.items.list.ItemListActivity;
 import com.ghstudios.android.features.locations.LocationListActivity;
 import com.ghstudios.android.features.palicos.PalicoPagerActivity;
@@ -222,6 +223,9 @@ public abstract class GenericActionBarActivity extends AppCompatActivity
                 break;
             case MenuSection.PALICOS:
                 intent = new Intent(ctx, PalicoPagerActivity.class);
+                break;
+            case MenuSection.HORNS:
+                intent = new Intent(ctx, HornGuideActivity.class);
                 break;
             case MenuSection.COMBINING: // Combining
                 intent = new Intent(ctx, CombiningListPagerActivity.class);

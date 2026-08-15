@@ -22,6 +22,7 @@ public class MenuSection {
     public static final int ITEMS = R.id.nav_items;
     public static final int BENTOS = R.id.nav_bentos;
     public static final int PALICOS = R.id.nav_palicos;
+    public static final int HORNS = R.id.nav_horns;
     public static final int COMBINING = R.id.nav_combining;
     public static final int LOCATIONS = R.id.nav_locations;
     public static final int DECORATION = R.id.nav_decorations;

@@ -51,6 +51,9 @@ public class ArmorDetailFragment extends Fragment {
     @BindView(R.id.defense) ColumnLabelTextCell defenseView;
     @BindView(R.id.part) ColumnLabelTextCell partView;
 
+    @BindView(R.id.description_header) View descriptionHeader;
+    @BindView(R.id.armor_description) TextView descriptionView;
+
     @BindView(R.id.skill_section) ViewGroup skillSection;
     @BindView(R.id.skill_list) LinearLayout skillListView;
 
@@ -176,6 +179,17 @@ public class ArmorDetailFragment extends Fragment {
         iceResTextView.setText(String.valueOf(armor.getIceRes()));
         thunderResTextView.setText(String.valueOf(armor.getThunderRes()));
         dragonResTextView.setText(String.valueOf(armor.getDragonRes()));
+
+        // 防具描述（来自 items.description，中文模式显示中文）
+        String desc = armor.getDescription();
+        if (desc != null && !desc.isEmpty()) {
+            descriptionView.setText(desc);
+            descriptionView.setVisibility(View.VISIBLE);
+            descriptionHeader.setVisibility(View.VISIBLE);
+        } else {
+            descriptionView.setVisibility(View.GONE);
+            descriptionHeader.setVisibility(View.GONE);
+        }
     }
 
     private void populateSkills(List<ItemToSkillTree> skills) {

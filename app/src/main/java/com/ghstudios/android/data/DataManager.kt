@@ -768,6 +768,10 @@ class DataManager private constructor(private val mAppContext: Context) {
         return mHelper.queryPalicoWeapons()
     }
 
+    fun queryHornSongs(): List<HornSong> {
+        return mHelper.queryHornSongs()
+    }
+
     fun getPalicoWeapon(id: Long): PalicoWeapon? {
         val cursor = mHelper.queryPalicoWeapon(id)
         cursor.moveToFirst()

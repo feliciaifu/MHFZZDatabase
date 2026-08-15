@@ -27,6 +27,9 @@
         <activity android:name="com.ghstudios.android.features.palicos.PalicoPagerActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="com.ghstudios.android.features.horns.HornGuideActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name="com.ghstudios.android.features.palicos.PalicoWeaponDetailActivity"
             android:screenOrientation="portrait"/>
 
