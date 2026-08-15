@@ -98,6 +98,7 @@ object MHUtils {
             'Y' -> return R.color.item_yellow
             'G' -> return R.color.item_green
             'A' -> return R.color.item_teal
+            'O' -> return R.color.item_orange
             'R' -> return R.color.item_dark_red
         }
         return R.color.item_white

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp"
+    android:paddingLeft="@dimen/margin_large"
+    android:paddingRight="@dimen/margin_large"
+    android:paddingTop="@dimen/margin_medium"
+    android:paddingBottom="@dimen/margin_medium"
     android:gravity="center_vertical">
 
     <TextView
@@ -12,9 +16,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="♪♪♪"
         android:minWidth="72dp"
-        android:fontFamily="monospace" />
+        tools:text="PP" />
 
     <TextView
         android:id="@+id/horn_name"
@@ -22,6 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="15sp"
-        android:text="旋律名" />
+        tools:text="旋律名" />
 
 </LinearLayout>
