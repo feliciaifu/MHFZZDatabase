@@ -24,6 +24,7 @@ import com.ghstudios.android.components.TitleBarCell;
 import com.ghstudios.android.data.classes.Component;
 import com.ghstudios.android.data.classes.Cuff;
 import com.ghstudios.android.data.classes.Item;
+import com.ghstudios.android.features.items.detail.ItemUsageFragment;
 import com.ghstudios.android.features.wishlist.external.WishlistDataAddDialogFragment;
 import com.ghstudios.android.mhgendatabase.R;
 
@@ -151,7 +152,7 @@ public class CuffDetailFragment extends Fragment {
 
             // only show recipe title if there's more than one
             if (recipes.size() > 1) {
-                cell.setTitleText(recipe.get(0).getType());
+                cell.setTitleText(ItemUsageFragment.localizeType(getContext(), recipe.get(0).getType()));
             }
 
             for (Component component : recipe) {

@@ -2,6 +2,7 @@ package com.ghstudios.android.features.items.detail
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -26,6 +27,20 @@ import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
 class ItemUsageFragment : RecyclerViewFragment() {
     companion object {
         private const val ARG_ITEM_ID = "COMPONENT_ID"
+
+        /** 制作类型本地化：Create/Improve/Improve2..7 → 语言字符串（en/zh） */
+        @JvmStatic
+        fun localizeType(context: Context, type: String): String = when (type) {
+            "Create" -> context.getString(R.string.item_crafting)
+            "Improve" -> context.getString(R.string.ui_improve)
+            "Improve2" -> context.getString(R.string.ui_improve_2)
+            "Improve3" -> context.getString(R.string.ui_improve_3)
+            "Improve4" -> context.getString(R.string.ui_improve_4)
+            "Improve5" -> context.getString(R.string.ui_improve_5)
+            "Improve6" -> context.getString(R.string.ui_improve_6)
+            "Improve7" -> context.getString(R.string.ui_improve_7)
+            else -> type
+        }
 
         @JvmStatic
         fun newInstance(id: Long): ItemUsageFragment {
@@ -89,7 +104,7 @@ class UsageAdapterDelegate : AbsListItemAdapterDelegate<Component, Any, UsageAda
 
             val nameText = created.name
             val amtText = "" + component.quantity
-            val typeText = "" + component.type
+            val typeText = ItemUsageFragment.localizeType(itemView.context, component.type)
 
             itemTextView.text = nameText
             amtTextView.text = amtText
