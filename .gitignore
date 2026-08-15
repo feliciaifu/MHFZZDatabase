@@ -95,3 +95,4 @@ tools/mhf-patcher/obj/
 # Python
 __pycache__/
 *.pyc
+tools/mhf-text-browser/renderer/dist/
