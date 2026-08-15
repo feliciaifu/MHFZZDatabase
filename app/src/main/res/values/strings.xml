@@ -812,4 +812,14 @@
     <string name="type_hub_ina">Ina</string>
     <string name="type_hub_sr_guide">SR Guide Quests</string>
     <string name="title_horns">Hunting Horn</string>
+    <string name="ui_improve">Improve</string>
+    <string name="ui_improve_2">Improve 2</string>
+    <string name="ui_improve_3">Improve 3</string>
+    <string name="ui_improve_4">Improve 4</string>
+    <string name="ui_improve_5">Improve 5</string>
+    <string name="ui_improve_6">Improve 6</string>
+    <string name="ui_improve_7">Improve 7</string>
+    <string name="ui_improve_8">Improve 8</string>
+    <string name="ui_upgrades_to">Upgrades To</string>
+    <string name="ui_upgrades_from">Upgrades From</string>
 </resources>

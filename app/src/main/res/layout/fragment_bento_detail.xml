@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    app:labelText="Attack"
+                    app:labelText="@string/ui_attack"
                     app:valueText="1"
                     tools:visibility="visible" />
 
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    app:labelText="Defense"
+                    app:labelText="@string/ui_defense"
                     app:valueText="-1"
                     tools:visibility="visible" />
             </LinearLayout>

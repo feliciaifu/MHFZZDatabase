@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    app:labelText="Attack"
+                    app:labelText="@string/ui_attack"
                     app:valueText="1"
                     tools:visibility="visible" />
 
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    app:labelText="Defense"
+                    app:labelText="@string/ui_defense"
                     app:valueText="-1"
                     tools:visibility="visible" />
             </LinearLayout>
@@ -135,7 +135,7 @@
             android:id="@+id/improve_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve"
+            app:labelText="@string/ui_improve"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -150,7 +150,7 @@
             android:id="@+id/improve2_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 2"
+            app:labelText="@string/ui_improve_2"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -165,7 +165,7 @@
             android:id="@+id/improve3_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 3"
+            app:labelText="@string/ui_improve_3"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -180,7 +180,7 @@
             android:id="@+id/improve4_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 4"
+            app:labelText="@string/ui_improve_4"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -195,7 +195,7 @@
             android:id="@+id/improve5_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 5"
+            app:labelText="@string/ui_improve_5"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -210,7 +210,7 @@
             android:id="@+id/improve6_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 6"
+            app:labelText="@string/ui_improve_6"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -225,7 +225,7 @@
             android:id="@+id/improve7_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 7"
+            app:labelText="@string/ui_improve_7"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -240,7 +240,7 @@
             android:id="@+id/improve8_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Improve 8"
+            app:labelText="@string/ui_improve_8"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -255,7 +255,7 @@
             android:id="@+id/upgrade_to_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Upgrades To"
+            app:labelText="@string/ui_upgrades_to"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -270,7 +270,7 @@
             android:id="@+id/upgrade_from_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelText="Upgrades From"
+            app:labelText="@string/ui_upgrades_from"
             android:visibility="gone"
             tools:visibility="visible" />
 

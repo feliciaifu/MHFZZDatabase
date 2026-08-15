@@ -812,4 +812,14 @@
     <string name="type_hub_ina">伊娜</string>
     <string name="type_hub_sr_guide">SR指南任务</string>
     <string name="title_horns">狩猎笛</string>
+    <string name="ui_improve">强化</string>
+    <string name="ui_improve_2">强化2</string>
+    <string name="ui_improve_3">强化3</string>
+    <string name="ui_improve_4">强化4</string>
+    <string name="ui_improve_5">强化5</string>
+    <string name="ui_improve_6">强化6</string>
+    <string name="ui_improve_7">强化7</string>
+    <string name="ui_improve_8">强化8</string>
+    <string name="ui_upgrades_to">升级为</string>
+    <string name="ui_upgrades_from">由…升级</string>
 </resources>

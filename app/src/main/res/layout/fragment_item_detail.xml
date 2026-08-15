@@ -91,7 +91,7 @@
             <com.ghstudios.android.components.SectionHeaderCell
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Store"/>
+                app:labelText="@string/ui_store"/>
             <android.support.v7.widget.RecyclerView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -113,7 +113,7 @@
             <com.ghstudios.android.components.SectionHeaderCell
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Mocha" />
+                app:labelText="@string/title_mocha" />
 
             <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
