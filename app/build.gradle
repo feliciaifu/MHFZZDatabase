@@ -65,6 +65,8 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            // 自用签名：使用 debug 证书，release 包可直接安装
+            signingConfig signingConfigs.debug
         }
     }
 
