@@ -11,20 +11,62 @@ import com.ghstudios.android.data.classes.QuestHub
 import com.ghstudios.android.data.DataManager
 import com.ghstudios.android.mhgendatabase.R
 
-// collection of all possible stars
-private val guildStars = arrayOf("1", "2", "3", "4", "5", "6", "7", "11", "12", "13", "14")
-
-private val village = arrayOf("X", "2", "3", "4", "5", "6", "7", "8", "9", "10")
-//private val guild = arrayOf("1", "2", "3", "4", "5", "6", "7", "G1", "G2", "G3", "G4")
-
-private val event = arrayOf("Low Rank", "G Rank")
-private val hunterquests = arrayOf("HR1", "HR2", "HR3", "HR4", "HR5", "HR6", "Exotic Quests")
-private val ghunterquests = arrayOf("Gathering Quests","G1","G2","G3","G4","G5","G6","G7","Burst Origin Quests","G Exotic Quests")
-private val guild = arrayOf("Quest Orders","Training Support Quests")
-private val specialquests = arrayOf("Superior Quests","Promotional","Premium Quests","Paw Coins","Luxury Quests","Hiden Stone Quests","HR Ranking Rewards")
-private val other = arrayOf("Gear Acquisition Quests","Hunting Technique Quests")
-private val gspecialquests = arrayOf("G Superior Quests","G Promotional","G Hiden Stone Quests")
-private val conquest = arrayOf("Level 1","Level 200","Level 1000","Level 9999","Shiten","Adv Shiten Quests")
+// 分组：DB stars 字面量 -> 字符串资源（getString 按 locale 取，HR/G/Level 保留英文）
+private val hunterquests = arrayOf(
+    "HR1" to R.string.quest_group_hr1,
+    "HR2" to R.string.quest_group_hr2,
+    "HR3" to R.string.quest_group_hr3,
+    "HR4" to R.string.quest_group_hr4,
+    "HR5" to R.string.quest_group_hr5,
+    "HR6" to R.string.quest_group_hr6,
+    "Exotic Quests" to R.string.quest_group_exotic
+)
+private val ghunterquests = arrayOf(
+    "Gathering Quests" to R.string.quest_group_gathering,
+    "G1" to R.string.quest_group_g1,
+    "G2" to R.string.quest_group_g2,
+    "G3" to R.string.quest_group_g3,
+    "G4" to R.string.quest_group_g4,
+    "G5" to R.string.quest_group_g5,
+    "G6" to R.string.quest_group_g6,
+    "G7" to R.string.quest_group_g7,
+    "Burst Origin Quests" to R.string.quest_group_burst_origin,
+    "G Exotic Quests" to R.string.quest_group_g_exotic
+)
+private val guild = arrayOf(
+    "Quest Orders" to R.string.quest_group_quest_orders,
+    "Training Support Quests" to R.string.quest_group_training_support
+)
+private val specialquests = arrayOf(
+    "Superior Quests" to R.string.quest_group_superior,
+    "Promotional" to R.string.quest_group_promotional,
+    "Premium Quests" to R.string.quest_group_premium,
+    "Paw Coins" to R.string.quest_group_paw_coins,
+    "Luxury Quests" to R.string.quest_group_luxury,
+    "Hiden Stone Quests" to R.string.quest_group_hidden_stone,
+    "HR Ranking Rewards" to R.string.quest_group_hr_ranking
+)
+private val other = arrayOf(
+    "Gear Acquisition Quests" to R.string.quest_group_gear_acq,
+    "Hunting Technique Quests" to R.string.quest_group_hunting_tech
+)
+private val gspecialquests = arrayOf(
+    "G Superior Quests" to R.string.quest_group_g_superior,
+    "G Promotional" to R.string.quest_group_g_promotional,
+    "G Hiden Stone Quests" to R.string.quest_group_g_hidden_stone
+)
+private val conquest = arrayOf(
+    "Level 1" to R.string.quest_group_level_1,
+    "Level 200" to R.string.quest_group_level_200,
+    "Level 1000" to R.string.quest_group_level_1000,
+    "Level 9999" to R.string.quest_group_level_9999,
+    "Shiten" to R.string.quest_group_shiten,
+    "Adv Shiten Quests" to R.string.quest_group_adv_shiten
+)
+private val event = arrayOf(
+    "Low Rank" to R.string.quest_group_low_rank,
+    "G Rank" to R.string.quest_group_g_rank
+)
 
 
 
@@ -83,14 +125,14 @@ class QuestExpandableListFragment : Fragment() {
             val labelMap = when (hub) {
                 // -> village.zip(village).toMap() // village maps to self
                 QuestHub.VILLAGE -> throw UnsupportedOperationException("Arena is not supported")
-                QuestHub.HUNTERQUESTS -> hunterquests.zip(hunterquests).toMap()
-                QuestHub.GHUNTERQUESTS -> ghunterquests.zip(ghunterquests).toMap()
-                QuestHub.SPECIALQUESTS -> specialquests.zip(specialquests).toMap()
-                QuestHub.GSPECIALQUESTS -> gspecialquests.zip(gspecialquests).toMap()
-                QuestHub.CONQUEST -> conquest.zip(conquest).toMap()
-                QuestHub.GUILD -> guild.zip(guild).toMap()
-                QuestHub.OTHER -> other.zip(other).toMap()
-                QuestHub.EVENT -> event.zip(event).toMap()
+                QuestHub.HUNTERQUESTS -> hunterquests.toMap()
+                QuestHub.GHUNTERQUESTS -> ghunterquests.toMap()
+                QuestHub.SPECIALQUESTS -> specialquests.toMap()
+                QuestHub.GSPECIALQUESTS -> gspecialquests.toMap()
+                QuestHub.CONQUEST -> conquest.toMap()
+                QuestHub.GUILD -> guild.toMap()
+                QuestHub.OTHER -> other.toMap()
+                QuestHub.EVENT -> event.toMap()
                 QuestHub.PERMIT -> throw RuntimeException("This stretch of code can't handle Permit, unexpected error")
                 QuestHub.ARENA -> throw UnsupportedOperationException("Arena is not supported")
                 QuestHub.DAILY -> throw UnsupportedOperationException("Arena is not supported")
@@ -110,8 +152,8 @@ class QuestExpandableListFragment : Fragment() {
                 val stars = it.key
                 val quests = it.value
                 //QuestGroup(labelMap[stars] ?: "", stars?.toInt() ?: -1, quests) tostring
-                QuestGroup(labelMap[stars] ?: "", stars.toString(), quests)
-            }.sortedBy { labelMap.values.indexOf(it.name) }
+                QuestGroup(getString(labelMap[stars] ?: R.string.quest_group_unknown), stars.toString(), quests)
+            }.sortedBy { labelMap.keys.indexOf(it.stars) }
 
         }
     }
