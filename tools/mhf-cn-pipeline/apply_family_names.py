@@ -73,12 +73,12 @@ def family_variant(fam_ja, ja_cp):
 
 
 def normalize_variant(s):
-    """变体规范化：繁转简 + 剥武器标志 [剣]/[ガ] + 去 {xxx} + 去分隔・。
+    """变体规范化：繁转简 + 武器标志转简体（[剣]→[剑]、[ガ]→[枪]）+ 去 {xxx} + 去分隔・。
 
-    保留版本词：魁、Ｆ、FX、Ｇ、GF、GX、Ｕ、Ｒ、Ｓ、Ｌ、阳、空、天 等。
+    保留武器标志与版本词：魁、Ｆ、FX、Ｇ、GF、GX、Ｕ、Ｒ、Ｓ、Ｌ、阳、空、天 等。
     """
     s = A.to_simplified(s)
-    s = s.replace("[ガ]", "").replace("[剣]", "").replace("[剑]", "").replace("[枪]", "")
+    s = s.replace("[ガ]", "[枪]").replace("[剣]", "[剑]").replace("[剑]", "[剑]")
     s = strip_brace_tags(s)
     s = s.replace("・", "").replace("．", "")
     return s

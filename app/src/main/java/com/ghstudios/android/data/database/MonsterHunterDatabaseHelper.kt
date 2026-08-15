@@ -61,7 +61,7 @@ For queries with JOINs:
 
 
 private const val DATABASE_NAME = "database.db"
-private const val DATABASE_VERSION = 36 // …34→35: 新增狩猎笛旋律表 horn_songs+指南页面；35→36: 防具家族名 name_zh 重生成（套装名、去武器标志）
+private const val DATABASE_VERSION = 37 // …35→36: 防具家族名 name_zh 重生成（套装名、去武器标志）；36→37: 保留武器标志 [剑]/[枪]
 
 /**
  * Initialize the helper object
