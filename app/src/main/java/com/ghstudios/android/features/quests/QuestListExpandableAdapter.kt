@@ -48,7 +48,8 @@ class QuestListExpandableAdapter(
                               viewGroup: ViewGroup?): View {
         val context = viewGroup?.context
         val inflater = LayoutInflater.from(context)
-        val v = inflater.inflate(
+        // reuse convertView to avoid re-inflating while scrolling
+        val v = view ?: inflater.inflate(
                 R.layout.fragment_quest_expandablelist_group_item,
                 viewGroup, false)
 
@@ -106,7 +107,8 @@ class QuestListExpandableAdapter(
                               viewGroup: ViewGroup?): View {
         val context = viewGroup?.context
         val inflater = LayoutInflater.from(context)
-        val v = inflater.inflate(
+        // reuse convertView to avoid re-inflating while scrolling
+        val v = view ?: inflater.inflate(
                 R.layout.fragment_quest_expandablelist_child_item,
                 viewGroup, false)
 

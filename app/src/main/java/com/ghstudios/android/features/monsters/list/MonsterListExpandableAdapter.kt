@@ -50,7 +50,8 @@ class MonsterListExpandableAdapter(
                               viewGroup: ViewGroup?): View {
         val context = viewGroup?.context
         val inflater = LayoutInflater.from(context)
-        val v = inflater.inflate(
+        // reuse convertView to avoid re-inflating while scrolling
+        val v = view ?: inflater.inflate(
             R.layout.fragment_monster_expandablelist_group_item,
             viewGroup, false)
 
@@ -68,7 +69,8 @@ class MonsterListExpandableAdapter(
                               viewGroup: ViewGroup?): View {
         val context = viewGroup?.context
         val inflater = LayoutInflater.from(context)
-        val v = inflater.inflate(
+        // reuse convertView to avoid re-inflating while scrolling
+        val v = view ?: inflater.inflate(
             R.layout.fragment_list_item_large,
             viewGroup, false)
 

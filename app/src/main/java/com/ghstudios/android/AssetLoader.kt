@@ -28,9 +28,18 @@ object AssetLoader {
 
     /**
      * Loads a tinted icon using an ITintedIcon, returning it as a Drawable
+     * Results are cached by (icon, colorArray, colorIndex) to avoid re-tinting
+     * on every list row bind.
      */
+    private val iconCache = HashMap<String, Drawable>()
+
     @JvmStatic
     fun loadIconFor(item: ITintedIcon): Drawable? {
+        val arrId = item.getColorArrayId()
+        val colorIdx = item.getIconColorIndex()
+        val key = item.getIconResourceString() + "#" + arrId + "#" + colorIdx
+        iconCache[key]?.let { return it }
+
         var resId = MHUtils.getDrawableId(ctx, item.getIconResourceString())
         if (resId <= 0) {
             resId = R.drawable.icon_quest_mark
@@ -38,17 +47,20 @@ object AssetLoader {
 
         val image = ContextCompat.getDrawable(ctx, resId)
 
-        val arrId = item.getColorArrayId()
-        if (arrId == 0) {
-            return image
+        val result: Drawable? = if (arrId == 0) {
+            image
+        } else {
+            // Tint the icon - we have an array id
+            val arr = MHUtils.getIntArray(ctx, arrId)
+            val color = arr[item.getIconColorIndex()]
+            image?.mutate()?.apply {
+                setColorFilter(color, PorterDuff.Mode.MULTIPLY)
+            }
         }
-
-        // Tint the icon - we have an array id
-        val arr = MHUtils.getIntArray(ctx, arrId)
-        val color = arr[item.getIconColorIndex()]
-        return image?.mutate()?.apply {
-            setColorFilter(color, PorterDuff.Mode.MULTIPLY)
+        if (result != null) {
+            iconCache[key] = result
         }
+        return result
     }
 
     /**
